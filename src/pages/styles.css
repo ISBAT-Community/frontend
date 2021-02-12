@@ -1,0 +1,264 @@
+.container .right-sidebar {
+  width: 20%;
+}
+
+.actions {
+  width: 10%;
+  color: var(--icons);
+  padding: 10px;
+  margin-right: 10px;
+}
+
+/* sidebar */
+
+.left-sidebar .profile-details .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-sidebar .profile-details .button button {
+  font-size: 0.8rem;
+  text-transform: capitalize;
+  background: none;
+  color: var(--lightblue);
+  margin: -0.5rem 0 0.5rem 0;
+}
+
+.left-sidebar .profile_pic img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.left-sidebar .edit-button {
+  margin: -56px 0 0 88px;
+  color: #8ee4fc !important;
+}
+
+.left-sidebar .profile-details {
+  padding-left: 1rem;
+}
+
+.left-sidebar .bio {
+  color: black;
+  font-family: var(--font-family);
+}
+
+.left-sidebar .location {
+  display: flex;
+  color: black;
+  padding: 0.3rem 0;
+}
+
+.left-sidebar .website {
+  display: flex;
+  padding-bottom: 0.3rem;
+}
+
+.left-sidebar .website a {
+  margin-left: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.left-sidebar .createdAt {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color);
+}
+
+/* channels */
+
+.left-sidebar .channels {
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.channels__title-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-sidebar .channels .user__channel {
+  margin-left: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-sidebar .channels .user__channel:hover {
+  background: var(--white);
+  border-radius: 5px;
+  padding: 0 0.3rem;
+  color: #494a4b;
+  transition: 0.5s ease-in-out;
+  box-shadow: var(--box-shadow);
+}
+
+.left-sidebar .channels .user-channel-link {
+  width: 100%;
+  font-size: 0.8rem;
+  outline-style: none;
+  text-decoration: none;
+}
+
+.left-sidebar .channels .channels-title {
+  font-size: 1rem;
+  color: "gray";
+  font-weight: 900;
+}
+
+.left-sidebar .channels .channel-name {
+  width: 100%;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #494a4b;
+  margin: 0.2rem 0;
+}
+
+.left-sidebar .channels .channel-name:hover {
+  font-weight: 900;
+}
+
+.left-sidebar .channels .user__channel .channel-setting {
+  margin-right: 0.7rem;
+}
+
+.left-sidebar .channels .user__channel .channel-setting a {
+  color: var(--icons);
+}
+
+/* Main column */
+
+.main .main-content button span {
+  font-weight: 900;
+  text-transform: capitalize;
+}
+
+/* LOgin */
+
+.login-contianer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(to right, #1e273d, #080d18); */
+  background: linear-gradient(to right, #e8ecf5, #edf0f7);
+}
+
+.login-contianer img {
+  opacity: 0.3;
+  z-index: 1;
+  width: 300px;
+  animation: shape 4s infinite cubic-bezier(0.23, 1, 0.32, 1);
+  transform: perspective(1000);
+  transition: 1s ease-in-out;
+}
+
+.login-contianer img:hover {
+  opacity: 1;
+  transition: 0.3s ease-in-out;
+}
+
+.img-background {
+  left: 15%;
+  position: absolute;
+
+  transform: rotate(45deg);
+}
+
+@keyframes shape {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.login-content {
+  z-index: 100;
+  width: 500px;
+  height: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-content .login-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 1.5rem;
+  color: var(--color);
+}
+
+.login-content form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-content form input {
+  width: 60%;
+  color: var(--color);
+  border-top: none;
+  border-left: #dddddd;
+  margin: 0.5rem 0;
+  font-family: var(--font-family);
+  border-radius: 25px;
+  padding: 0.6rem 1rem;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+  /* border-bottom: 1px solid #dddddd; */
+}
+
+.login-content form input:focus {
+  width: 60%;
+  color: rgb(14, 23, 48);
+  border: none;
+  margin: 0.5rem 0;
+  border-radius: 25px;
+  padding: 0.6rem 1rem;
+  box-shadow: var(--box-shadow);
+}
+
+.login-content .login-actions {
+  width: 45%;
+  margin: 1.5rem auto;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-actions .button button {
+  font-size: 0.7rem;
+  font-weight: 900;
+  background: var(--white);
+  border-radius: 25px;
+  padding: 0.5rem 2rem;
+  font-family: var(--font-family);
+  box-shadow: var(--box-shadow);
+}
+
+.login-actions a {
+  font-size: 0.8rem;
+}
+
+.login-container header {
+  width: 80%;
+  display: flex;
+  margin: 1rem auto;
+  background: none !important;
+  position: fixed !important;
+  justify-content: space-between;
+  box-shadow: none !important;
+}

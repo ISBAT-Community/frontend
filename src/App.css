@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;700;900&display=swap");
+
+:root {
+  --white: #ffffff;
+  --lightblue: #1e96e9;
+  --border-color: #d2d2d5;
+  /* --primary-background: #e7ecf2; */
+  --color: hsl(212, 25%, 20%);
+  --primary-background: #ffffff;
+  --secondary-background: #ffffff;
+  /* --secondary-background: #131920; */
+  --box-shadow: 1px 2px 2px 1px #dddddd;
+  --primary-text-color: #b6b5b5;
+  --secondary-text-color: #747474;
+  --font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background: #383b42;
+  font-family: "Nunito" sans-serif;
+}
+
+/* global */
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+hr {
+  margin: 0.5rem 0 0.5rem 0;
+  border: 1px solid #3c3c47;
+}
+
+.link {
+  color: var(--lightblue);
+  text-decoration: none;
+}
+
+.column {
+  color: #919191;
+}
+
+/* mui modification */
+.MuiDialog-paperWidthSm {
+  width: 60%;
+  background-color: #36393f !important;
+}
+
+.MuiDialog-paperWidthSm {
+  width: 450px;
+}
+
+.MuiBadge-anchorOriginTopRightRectangle {
+  top: 10px !important;
+}
+
+.icon {
+  color: white;
+  font-size: "1.2rem";
+  margin-right: 5;
+}
