@@ -22,7 +22,7 @@
 }
 
 body {
-  overflow: hidden;
+  overflow: auto;
   background: #383b42;
   font-family: "Nunito" sans-serif;
 }
