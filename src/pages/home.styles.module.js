@@ -1,6 +1,20 @@
 import { colors, font } from "../components/constants/colors";
 
 export const styles = {
+  '@global': {
+    '*::-webkit-scrollbar': {
+      width: '0.4em'
+    },
+    '*::-webkit-scrollbar-track': {
+      borderRadius: 25,
+      background: colors.secondary_color,
+      '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+    },
+    '*::-webkit-scrollbar-thumb': {
+      borderRadius: 25,
+      background: colors.dark_background_color,
+    }
+  },
   bottom: {
     width: "50%",
     display: "flex",
@@ -10,9 +24,11 @@ export const styles = {
     background: colors.background_color
   },
   container: {
-    width: "90%",
+    width: "80%",
+    maxWidth: "90%",
+    height: "100vh",
     display: "flex",
-    margin: "3rem auto"
+    margin: "0 auto"
   },
 
   main: {
