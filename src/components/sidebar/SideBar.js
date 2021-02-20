@@ -9,11 +9,13 @@ import { colors } from "../constants/colors";
 
 const useStyles = makeStyles({
   SideBar: {
-    width: "30%",
+    width: "13.8%",
+    height: "100%",
+    position: "fixed",
     marginRight: ".1rem",
-    background: "#36393f",
-    padding: "0 1rem",
-    borderRight: `1px solid ${colors.dark_background_color}`
+    marginLeft: "13.8%",
+    background: "#fff",
+    padding: "0 0 0 1rem"
   },
   SideBar_profilePic: {
     display: "flex",
@@ -24,7 +26,7 @@ const useStyles = makeStyles({
   SideBar_profilePic_img: {
     width: "80px",
     height: "80px",
-    marginTop: "20%",
+    marginTop: "15%",
     objectFit: "cover",
     borderRadius: "50%"
   },

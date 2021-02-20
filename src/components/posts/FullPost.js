@@ -53,14 +53,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function FullScreenDialog({ match }) {
-  const [user, setUser] = React.useState({});
   const classes = useStyles();
-
-  //   React.useEffect(async () => {
-  //     const post = await axios.get(`http://localhost:9090/post/${_id}`);
-  //     setUser(post.data);
-  //   }, []);
-
   return (
     <Container className={classes.container}>
       <AppBar className={classes.appBar}>
@@ -70,7 +63,6 @@ export default function FullScreenDialog({ match }) {
               className={classes.closeBtn}
               edge="start"
               color="inherit"
-              //   onClick={handleClose}
               aria-label="close"
             >
               <CloseIcon />

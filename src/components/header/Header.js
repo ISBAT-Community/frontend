@@ -3,7 +3,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import { colors } from "../constants/colors";
-// import profile_pic from "../../images/black.jpg";
 import "./style.css";
 
 const useStyles = makeStyles({
@@ -46,7 +45,7 @@ const useStyles = makeStyles({
     fontSize: 14,
     textAlign: "center",
     borderRadius: 5,
-    backgroundColor: colors.secondary_color,
+    backgroundColor: "#ebedef",
     border: `1px solid ${colors.borderColor}`
     // boxShadow: `1px 2px 2px 2px ${colors.borderColor}`
   },

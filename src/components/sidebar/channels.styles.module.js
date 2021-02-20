@@ -6,14 +6,12 @@ export const styles = {
   },
   channels: {
     width: "100%",
-    paddingTop: ".5rem",
-    marginBottom: "1rem"
+    minWidth: 170
   },
   channels_title_action: {
     display: "flex",
     alignItems: "center",
     color: colors.white,
-    marginBottom: "1rem",
     justifyContent: "space-between"
   },
   channel_title: {
@@ -27,7 +25,6 @@ export const styles = {
   },
   user_channel_container: {
     overflow: "scroll",
-    overflowX: "scroll",
     height: "250px",
     overflowX: "hidden"
   }

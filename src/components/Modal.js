@@ -13,10 +13,13 @@ import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import { colors, font } from "../components/constants/colors";
 import axios from "axios";
+import CloseIcon from "@material-ui/icons/Close";
+import LockIcon from "@material-ui/icons/Lock";
+import { IOSSwitch } from "../utils/Switch";
 
 const useStyles = makeStyles({
   btn: {
-    fontSize: "1rem",
+    fontSize: ".8rem",
     textTransform: "capitalize",
     color: colors.lightgray
   },
@@ -31,53 +34,93 @@ const useStyles = makeStyles({
   btn__create: {
     fontSize: "90%",
     textTransform: "capitalize",
-    color: colors.white,
+    color: colors.whiteColor,
     background: `${colors.lightBlue}!important`
   },
   dialogTitle: {
-    textAlign: "center"
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between"
   },
   title: {
-    fontSize: "1rem",
-    color: colors.white,
+    fontSize: "1.3rem",
+    color: colors.black,
     fontWeight: "bold",
+    justifyContent: "flex-start",
     fontFamily: font.fontFamily
   },
   form: {
     width: "100%"
   },
-  text: {
+  description: {
     color: colors.lightgray,
-    fontSize: ".8rem"
+    fontSize: ".8rem",
+    paddingBottom: "1rem"
   },
   inputField: {
     width: "100%",
     fontSize: ".95rem",
     fontFamily: font.fontFamily,
-    color: "white !important",
+    color: colors.textColor,
     margin: ".3rem 0",
-    background: colors.secondary_background_color,
-    border: `1px solid ${colors.borderColor} !important`
+    background: colors.background_color,
+    border: `1px solid ${colors.borderColor}`
+  },
+  inputFieldFocus: {
+    width: "100%",
+    fontSize: ".95rem",
+    fontFamily: font.fontFamily,
+    color: colors.textColor,
+    margin: ".3rem 0",
+    background: colors.background_color,
+    border: `1px solid ${colors.lightBlue}`
   },
   label: {
     marginTop: ".4rem",
     color: `${colors.textColor} !important`,
-    fontSize: ".9rem",
+    fontSize: ".8rem",
+    fontWeight: "bold",
     textTransform: "capitalize"
   },
   newChannel: {
     fontSize: "90%",
     fontWeight: "bold",
     color: colors.lightBlue,
-    background: `none !important`,
+    background: `#fff !important`,
     textTransform: "capitalize"
+  },
+  subdesc: {
+    marginLight: 10,
+    color: colors.darkGrayColor
+  },
+  private_channel: {
+    display: "flex",
+    color: colors.black,
+    alignItems: "center"
+  },
+  lockIcon: {
+    marginRight: 4,
+    fontSize: "1.2rem",
+    color: colors.darkGrayColor
+  },
+  private_channel_container: {
+    display: "flex",
+    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  dialog_action: {
+    marginRight: 10
   }
 });
 
 export default function Modal(props) {
   const [values, setValues] = useState({
     name: "",
-    open: false
+    open: false,
+    focus: null,
+    desInput: null,
+    description: ""
   });
 
   const handleChange = prop => event => {
@@ -89,6 +132,16 @@ export default function Modal(props) {
   };
   const handleClose = () => {
     setValues({ ...values, open: !values.open });
+  };
+
+  const handleMouseEnter = input => {
+    if (input === "name") setValues({ ...values, focus: true });
+    else if (input === "description") setValues({ ...values, desInput: true });
+  };
+
+  const handleMouseLeave = input => {
+    if (input === "name") setValues({ ...values, focus: false });
+    else if (input === "description") setValues({ ...values, desInput: false });
   };
 
   const handleCreateChannel = async () => {
@@ -117,14 +170,18 @@ export default function Modal(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle className={classes.dialogTitle} id="form-dialog-title">
-          <Typography className={classes.title} variant="body2">
-            {props.title}
-          </Typography>
+        <DialogTitle id="form-dialog-title">
+          <div className={classes.dialogTitle}>
+            <Typography className={classes.title} variant="body2">
+              {props.title}
+            </Typography>
+            <CloseIcon onClick={handleClose} />
+          </div>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText className={classes.text}>
-            {props.description}
+          <DialogContentText className={classes.description}>
+            Channels are where you and your friends, team can communicate.
+            Topic, for example — # Learn React.
           </DialogContentText>
           <form action="/">
             <FormControl className={classes.form} variant="outlined">
@@ -135,9 +192,13 @@ export default function Modal(props) {
                 Channel Name
               </InputLabel>
               <OutlinedInput
-                className={classes.inputField}
+                className={
+                  values.focus ? classes.inputFieldFocus : classes.inputField
+                }
                 type="text"
                 autoFocus
+                onMouseEnter={() => handleMouseEnter("name")}
+                onMouseLeave={() => handleMouseLeave("name")}
                 value={values.name}
                 onChange={handleChange("name")}
               />
@@ -145,18 +206,51 @@ export default function Modal(props) {
                 {emailError && emailError}
               </Typography> */}
             </FormControl>
+            <FormControl className={classes.form} variant="outlined">
+              <InputLabel
+                className={classes.label}
+                htmlFor="outlined-adornment-description"
+              >
+                Description-(optional)
+              </InputLabel>
+              <OutlinedInput
+                onMouseEnter={() => handleMouseEnter("description")}
+                onMouseLeave={() => handleMouseLeave("description")}
+                className={
+                  values.desInput ? classes.inputFieldFocus : classes.inputField
+                }
+                type="text"
+                value={values.description}
+                onChange={handleChange("description")}
+              />
+              <Typography variant="caption" className={classes.subdesc}>
+                Let your friends know What's this channel is about?
+              </Typography>
+            </FormControl>
           </form>
+
+          <div className={classes.private_channel_container}>
+            <Typography variant="body2" className={classes.private_channel}>
+              <LockIcon className={classes.lockIcon} />
+              Private Channel
+            </Typography>
+            <IOSSwitch className={classes.switch} />
+          </div>
+          <Typography variant="caption" className={classes.subdesc}>
+            Making a channel private, only selected members will be able to view
+            this channel
+          </Typography>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className={classes.dialog_action}>
           <Button className={classes.btn} onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button
+            disabled={values.name === "" ? true : false}
             className={classes.btn__create}
             onClick={handleCreateChannel}
-            color="primary"
           >
-            Create
+            Create Channel
           </Button>
         </DialogActions>
       </Dialog>

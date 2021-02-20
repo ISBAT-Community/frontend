@@ -1,18 +1,18 @@
 import { colors, font } from "../components/constants/colors";
 
 export const styles = {
-  '@global': {
-    '*::-webkit-scrollbar': {
-      width: '0.4em'
+  "@global": {
+    "*::-webkit-scrollbar": {
+      width: "0.4em"
     },
-    '*::-webkit-scrollbar-track': {
+    "*::-webkit-scrollbar-track": {
       borderRadius: 25,
       background: colors.secondary_color,
-      '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)'
+      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)"
     },
-    '*::-webkit-scrollbar-thumb': {
+    "*::-webkit-scrollbar-thumb": {
       borderRadius: 25,
-      background: colors.dark_background_color,
+      background: colors.dark_background_color
     }
   },
   bottom: {
@@ -24,18 +24,26 @@ export const styles = {
     background: colors.background_color
   },
   container: {
-    width: "80%",
-    maxWidth: "90%",
+    width: "85%",
+    maxWidth: "1300px",
+    minWidth: 1070,
     height: "100vh",
     display: "flex",
-    margin: "0 auto"
+    margin: "0 auto",
+    paddingTop: "3.5%",
+    position: "relative"
   },
 
+  leftSidebar: {
+    width: "30%",
+    maxWidth: 250,
+    paddingTop: "2%",
+    background: colors.background_color
+  },
   main: {
     width: "100%",
-    backgroundColor: colors.background_color,
-    // justifyContent: "flex-start",
-    margin: "0 1rem 3rem 0"
+    marginLeft: "16.5%",
+    backgroundColor: colors.background_color
   },
   main_content: {
     // display: "flex",
@@ -51,6 +59,7 @@ export const styles = {
     fontFamily: font.fontFamily
   },
   main_column: {
+    width: "100%",
     height: "80vh",
     display: "flex",
     overflowY: "scroll",

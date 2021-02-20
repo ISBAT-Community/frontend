@@ -22,8 +22,10 @@
 }
 
 body {
-  overflow: auto;
+  box-sizing: border-box;
+  background: #ffffff;
   background: #383b42;
+  background: #f2f3f5;
   font-family: "Nunito" sans-serif;
 }
 
@@ -36,7 +38,8 @@ body {
 
 hr {
   margin: 0.5rem 0 0.5rem 0;
-  border: 1px solid #3c3c47;
+  /* border: 1px solid #3c3c47; */
+  border: 1px solid #e9efff;
 }
 
 .link {
@@ -48,19 +51,13 @@ hr {
   color: #919191;
 }
 
-/* mui modification */
-.MuiDialog-paperWidthSm {
-  width: 60%;
-  background-color: #36393f !important;
-}
-
 .MuiDialog-paperWidthSm {
   width: 450px;
 }
 
-.MuiBadge-anchorOriginTopRightRectangle {
+/* .MuiBadge-anchorOriginTopRightRectangle {
   top: 10px !important;
-}
+} */
 
 .icon {
   color: white;

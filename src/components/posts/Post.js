@@ -1,32 +1,34 @@
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
-import EmojiIcon from "@material-ui/icons/EmojiEmotions";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import dayjs from "dayjs";
-import { Link } from "react-router-dom";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { styles } from "./post.styles.module";
 import PostProfilePic from "./PostProfilePic";
-import Container from "@material-ui/core/Container";
+import Tooltip from "@material-ui/core/Tooltip";
+import More from "./More";
 
-function Post(props) {
+function Post({ post: { body, createdAt, user }, classes }) {
   dayjs.extend(relativeTime);
-  const {
-    post: {
-      body,
-      createdAt,
-      // like,
-      _id,
-      user
-    },
-    classes
-  } = props;
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = event => {
+    event.preventDefault();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
 
   return (
-    <Container className={classes.post}>
+    <div className={classes.post}>
       <PostProfilePic userInfo={user} />
-      <Link to={`/post/${_id}`} className={classes.postLink}>
+      <div className={classes.postLink}>
         <div className={classes.post__content}>
           <div className={classes.post_info}>
             <div className={classes.post_user}>
@@ -36,8 +38,19 @@ function Post(props) {
               </span>
             </div>
             <div className={classes.post_action}>
-              <EmojiIcon className={classes.emoji} />
-              <MoreVertIcon />
+              <Tooltip
+                style={{ background: "white !important" }}
+                placement="top"
+                title="More"
+              >
+                <MoreVertIcon onClick={handleClick} />
+              </Tooltip>
+              <More
+                anchorEl={anchorEl}
+                open={open}
+                id={id}
+                handleClose={handleClose}
+              />
             </div>
           </div>
           <div className={classes.post_body_container}>
@@ -45,43 +58,9 @@ function Post(props) {
               {body}
             </Typography>
           </div>
-
-          {/* <div className="post_actions">
-          <input type="button" value="Reply" onClick={() => toggleInput(_id)} />
-          <IconButton>
-            <Badge className={classes.badge} badgeContent={like ? like : ""}>
-              <ThumbsUpOutlinedIcon className={classes.btn_thumbsUp} />
-            </Badge>
-          </IconButton>
-          <IconButton>
-            <ThumbDownOutlinedIcon className={classes.btn_thumbsDown} />
-          </IconButton>
-        </div> */}
-          {/* {replies ? (
-          <div>
-            <p>{replies}</p>
-          </div>
-        ) : (
-          ""
-        )} */}
-          {/* {showReplyInput ? (
-          <form action="/" method="POST">
-            <div className={classes.replyInputContainer}>
-              <AddIcon />
-              <input
-                type="text"
-                placeholder="Say something"
-                className={classes.replyInput}
-              />
-              <EmojiIcon />
-            </div>
-          </form>
-        ) : (
-          ""
-        )} */}
         </div>
-      </Link>
-    </Container>
+      </div>
+    </div>
   );
 }
 

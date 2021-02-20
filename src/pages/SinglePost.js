@@ -1,90 +1,42 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-// import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
-// import Divider from "@material-ui/core/Divider";
-import AppBar from "@material-ui/core/AppBar";
+import { Link } from "react-router-dom";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-// import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
-import { colors } from "../components/constants/colors";
+import ThumbsUpOutlinedIcon from "@material-ui/icons/ThumbUpOutlined";
+import ThumbDownOutlinedIcon from "@material-ui/icons/ThumbDownOutlined";
+import withStyles from "@material-ui/core/styles/withStyles";
 import PostProfilePic from "../components/posts/PostProfilePic";
-import { connect } from "react-redux";
-import { fetchSinglePostData } from "../redux/actions/post";
+import { styles } from "./singlePost.styles.module";
+// import { connect } from "react-redux";
+// import { fetchSinglePostData } from "../redux/actions/post";
 import axios from "axios";
 
-const useStyles = makeStyles(theme => ({
-  appBar: {
-    padding: "5%",
-    position: "relative",
-    boxShadow: "none"
-  },
-  btnClose__container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  closeBtn: {
-    float: "right",
-    marginBottom: 5,
-    border: `1px solid ${colors.white}`
-  },
-  container: {
-    width: "85%"
-  },
-  post_content: {
-    display: "flex"
-  },
-  post_content_left: {
-    width: "50%",
-    height: 200,
-    background: colors.white
-  },
-  post_content_right: {
-    width: "50%",
-    height: 200,
-    marginLeft: 6,
-    background: colors.white
-  },
-  title: {
-    marginLeft: theme.spacing(2)
-  }
-}));
-
-function SinglePost({ match, history }) {
-  const fetchSinglePostRef = React.useRef(() => {});
-  const classes = useStyles();
-
-  const [singlePost, setSinglePost] = React.useState([]);
-
-  const {
-    user: { username }
-  } = singlePost;
+function SinglePost({ classes, match, history }) {
+  const [singlePost, setSinglePost] = React.useState({});
+  const [userData, setUserData] = React.useState({});
+  const [loading, setLoading] = React.useState(null);
 
   const _id = match.params.id;
 
-  fetchSinglePostRef.current = () => {
-    fetchSinglePostData(_id);
-  };
-
   React.useEffect(() => {
-    fetchData();
-    fetchSinglePostRef.current();
-  }, []);
-
-  const fetchData = () => {
-    axios
-      .get(`http://localhost:9090/post/${_id}`)
-      .then(res => setSinglePost(res.data));
-  };
+    setLoading(true);
+    axios.get(`http://localhost:9090/post/${_id}`).then(({ data }) => {
+      setSinglePost(data);
+      axios.get(`http://localhost:9090/user/${data.user}`).then(({ data }) => {
+        setUserData(data);
+        setLoading(false);
+      });
+    });
+  }, [_id]);
 
   return (
     <Slide direction="up" in={true}>
       <Container className={classes.container}>
-        <AppBar className={classes.appBar}>
+        <div className={classes.appBar}>
           <Toolbar>
             <div className={classes.btnClose__container}>
               <IconButton
@@ -99,27 +51,65 @@ function SinglePost({ match, history }) {
               ESC
             </div>
           </Toolbar>
-        </AppBar>
+        </div>
         <Container className={classes.container}>
-          <div className={classes.post_content}>
-            <div className={classes.post_content_left}>
-              <p>{username}</p>
+          {loading ? (
+            "loading..."
+          ) : (
+            <div className={classes.post_content}>
+              <div className={classes.post_content_left}>
+                <div className={classes.PostProfilePic}>
+                  <PostProfilePic userInfo={userData} />
+                </div>
+                <div>
+                  <div className={classes.info}>
+                    <div className={classes.posted_by}>
+                      <Typography className={classes.name} variant="body2">
+                        {userData.username}
+                      </Typography>
+                      <Typography
+                        className={classes.createdAt}
+                        variant="caption"
+                      >
+                        {singlePost.createdAt}
+                      </Typography>
+                    </div>
+
+                    <div className={classes.userFollowActions}>
+                      <Typography
+                        className={classes.follow}
+                        component={Link}
+                        to="#"
+                        variant="body2"
+                      >
+                        Follow
+                      </Typography>
+                      <Typography
+                        className={classes.friendRequest}
+                        component={Link}
+                        to="#"
+                        variant="body2"
+                      >
+                        send friend request
+                      </Typography>
+                    </div>
+
+                    <Typography variant="body2">{singlePost.body}</Typography>
+                  </div>
+                  <div className={classes.actions}>
+                    <ThumbsUpOutlinedIcon />
+                    <ThumbDownOutlinedIcon />
+                  </div>
+                </div>
+              </div>
+
+              <div className={classes.post_content_right}></div>
             </div>
-            <div className={classes.post_content_right}></div>
-          </div>
+          )}
         </Container>
       </Container>
     </Slide>
   );
 }
 
-const mapStateToProps = state => ({
-  loading: state.loading,
-  singlePost: state.post
-});
-
-const mapDispatchToProps = {
-  fetchSinglePostData
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SinglePost);
+export default withStyles(styles)(SinglePost);

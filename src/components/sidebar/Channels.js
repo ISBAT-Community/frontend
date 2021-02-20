@@ -28,14 +28,14 @@ function Channels({ fetchChannels, channels, loading, classes }) {
       </div>
       <div className={classes.user_channel_container}>
         {loading
-          ? [0, 1, 2, 3, 4, 6, 7].map((ele, index) => (
-              <LoadingChanel key={index} />
-            ))
-          : channels
+          ? "Your don't have channel yet"
+          : channels.length > 0
           ? channels.map(channel => (
               <Channel name={channel.name} id={channel._id} key={channel._id} />
             ))
-          : "Your don't have channel yet"}
+          : [...new Array(7)].map((ele, index) => (
+              <LoadingChanel key={index} />
+            ))}
       </div>
     </div>
   );

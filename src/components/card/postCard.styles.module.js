@@ -16,5 +16,10 @@ export const styles = {
     color: colors.textColor,
     justifyContent: "center",
     fontFamily: font.fontFamily
+  },
+  divider: {
+    background: "#f2f3f5",
+    marginTop: "1rem",
+    marginBottom: ".5rem"
   }
 };

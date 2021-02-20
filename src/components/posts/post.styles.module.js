@@ -4,7 +4,7 @@ export const styles = {
   post: {
     width: "100%",
     display: "flex",
-    paddingTop: 10
+    paddingLeft: 5
   },
   btn_thumbsUp: {
     fontSize: "1.2rem",
@@ -23,25 +23,25 @@ export const styles = {
   post_link: {
     textDecoration: "none"
   },
-  post_action: {
-    marginRight: "3rem"
-  },
+  // post_action: {
+  //   marginRight: "1rem"
+  // },
   emoji: {
     color: "gray"
   },
   post_body: {
     fontSize: "83%",
     width: "100%",
-    color: colors.textColor,
-    fontFamily: font.fontFamily
+    color: colors.textColor
   },
   post_body_container: {
-    width: "90%",
+    maxWidth: 700,
+    width: "100%",
     marginTop: "1%"
   },
   post_info: {
     display: "flex",
-    margin: " 0 0.5rem 0.4rem 0",
+    margin: " 0 0 0.4rem 0",
     justifyContent: "space-between"
   },
   post_user: {
@@ -60,8 +60,8 @@ export const styles = {
   },
 
   posted_by: {
-    color: colors.white,
     fontSize: 15,
+    color: colors.lightBlue,
     marginRight: "0.5rem",
     fontFamily: font.fontFamily
   },

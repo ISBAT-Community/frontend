@@ -1,11 +1,74 @@
-function Friends(props) {
+import React from "react";
+import withStyles from "@material-ui/core/styles/withStyles";
+import { styles } from "./friend.styles.module";
+import Typography from "@material-ui/core/Typography";
+import PostProfilePic from "../posts/PostProfilePic";
+import RightSideBarLoading from "../loading/RightSIdeBarLoading";
+import Tooltip from "@material-ui/core/Tooltip";
+import { connect } from "react-redux";
+import { fetchFriends } from "../../redux/actions/friends";
+
+function Friends({ classes, fetchFriends, friendList, loading }) {
+  const fetchFriendRef = React.useRef(() => {});
+
+  React.useEffect(() => {
+    fetchFriendRef.current();
+  }, []);
+
+  fetchFriendRef.current = () => {
+    fetchFriends();
+  };
+
   return (
     <div className="actions column">
-      {props.friends.map(friend => (
-        <p key={friend._id}>{friend.username}</p>
-      ))}
+      <div className={classes.members_status}>
+        <Typography>Members status __</Typography>
+      </div>
+      {loading ? (
+        <RightSideBarLoading />
+      ) : (
+        friendList.map(friend => (
+          <div key={friend._id} className={classes.user}>
+            <div className={classes.profilePic}>
+              <PostProfilePic userInfo={friend} />
+            </div>
+            <Typography className={classes.name} variant="caption">
+              <Tooltip
+                placement="right-start"
+                title={
+                  friend.status === "offline" ? (
+                    <p className={classes.tooltip}>Offline</p>
+                  ) : (
+                    <p className={classes.tooltip}>Online</p>
+                  )
+                }
+              >
+                <div
+                  className={
+                    friend.status === "offline"
+                      ? classes.offline
+                      : classes.online
+                  }
+                ></div>
+              </Tooltip>
+              {friend.username}
+            </Typography>
+          </div>
+        ))
+      )}
     </div>
   );
 }
 
-export default Friends;
+const mapStateToProps = state => ({
+  friendList: state.friend.friendList
+});
+
+const mapDispatchToProps = {
+  fetchFriends
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Friends));

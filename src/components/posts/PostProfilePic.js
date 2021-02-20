@@ -18,11 +18,16 @@ const useStyles = makeStyles({
   joined: {
     color: colors.white
   },
-
+  img: {
+    width: 40,
+    height: 40,
+    borderRadius: 25,
+    objectFit: "cover"
+  },
   paper: {
     width: "18%",
     marginLeft: 20,
-    background: colors.secondary_color,
+    background: colors.background_color,
     border: `1px solid ${colors.secondary_background_color}`
   },
   popover: {
@@ -34,7 +39,7 @@ const useStyles = makeStyles({
     display: "flex",
     textAlign: "center",
     alignItems: "center",
-    background: colors.secondary_color,
+    background: colors.secondary_background_color,
     borderBottom: `1px solid ${colors.borderColor}`
   },
   popoverProfilePic: {
@@ -69,7 +74,8 @@ function PostProfilePic({ userInfo }) {
     setAnchorEl(event.currentTarget);
   };
 
-  const handlePopoverClose = () => {
+  const handlePopoverClose = e => {
+    e.preventDefault();
     setAnchorEl(false);
   };
 
@@ -81,10 +87,11 @@ function PostProfilePic({ userInfo }) {
     <div className="post__profile--pic">
       <Link to={`/profile/${userInfo._id}`}>
         <img
+          className={classes.img}
           src={userInfo.profilePic}
           alt="profilePic"
-          onMouseLeave={handlePopoverClose}
           onMouseEnter={handlePopoverOpen}
+          onMouseLeave={handlePopoverClose}
         />
       </Link>
       <Popover

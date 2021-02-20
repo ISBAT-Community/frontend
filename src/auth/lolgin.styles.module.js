@@ -8,27 +8,51 @@ export const styles = {
   error: {
     color: colors.error
   },
+
+  logo: {
+    width: 130
+  },
+
+  // layout: {
+  //   display: "flex",
+  //   textAlign: "center",
+  //   alignItems: "center",
+  //   justifyContent: "center"
+  // },
+
   register: {
     width: "100%",
     height: "100vh",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center",
-    background: colors.dark_background_color
+    justifyContent: "center"
+    // background: colors.dark_background_color
+  },
+  main__register_contianer: {
+    width: "55%",
+    display: "flex",
+    background: colors.background_color,
+    boxShadow: `0 2px 10px 0 rgba(0,0,0,.2)`
   },
   register__container: {
-    width: "450px",
+    width: "70%",
     borderRadius: 10,
-    justifyContent: "center",
-    background: "#36393f",
-    boxShadow: `0 2px 10px 0 rgba(0,0,0,.2)`
+    justifyContent: "center"
   },
   inputField: {
     fontSize: ".95rem",
     fontFamily: font.fontFamily,
-    color: "white !important",
+    color: `${colors.darkGrayColor}!important`,
     margin: ".3rem 0",
     border: `1px solid ${colors.borderColor} !important`
+  },
+
+  inputFieldWithBorder: {
+    fontSize: ".95rem",
+    fontFamily: font.fontFamily,
+    color: `${colors.darkGrayColor}!important`,
+    margin: ".3rem 0",
+    border: `1px solid ${colors.lightBlue} !important`
   },
   form: {
     width: "90%",
@@ -44,7 +68,7 @@ export const styles = {
   },
   button: {
     margin: "1rem 0",
-    color: colors.white,
+    color: `${colors.whiteColor} !important`,
     fontWeight: "bold",
     background: `${colors.lightBlue} !important`,
     textTransform: "capitalize"

@@ -1,50 +1,32 @@
-import { Fragment, useState, useEffect } from "react";
+import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/Typography";
 import PostCard from "../components/card/PostCard";
 import Header from "../components/header/Header";
 import SideBar from "../components/sidebar/SideBar";
 import Friends from "../components/friends/Friends.js";
-import RightSIdeBarLoading from "../components/loading/RightSIdeBarLoading";
 import { styles } from "./home.styles.module.js";
-import axios from "axios";
 import PostForm from "../components/posts/PostForm";
+import { connect } from "react-redux";
+import { fetchUserData } from "../redux/actions/user";
 
-const Home = ({ classes }) => {
-  const [logginUserDetails, setLogginUserDetails] = useState([]);
-  const [friends, setFriends] = useState([]);
-
-  useEffect(() => {
-    getUserData();
-    fetchFriends();
+const Home = ({ classes, fetchUserData, loggedInUser }) => {
+  const fetchUserDataRef = React.useRef(() => {});
+  React.useEffect(() => {
+    fetchUserDataRef.current();
   }, []);
 
-  const getUserData = async () => {
-    const logginUserInfo = await axios.get(`http://localhost:9090/user`);
-    if (logginUserInfo) {
-      setLogginUserDetails(logginUserInfo.data);
-    }
+  fetchUserDataRef.current = () => {
+    fetchUserData();
   };
 
-  const fetchFriends = async () => {
-    const friends = await axios.get("http://localhost:9090/users");
-    if (friends) {
-      setFriends(friends.data);
-    }
-  };
-
-  const { username, createdAt, bio, profilePic } = logginUserDetails;
-
+  const { username, createdAt, bio, profilePic } = loggedInUser;
   return (
-    <Fragment>
+    <React.Fragment>
       <Header />
       <div className={classes.container}>
-        <div className={classes.rightSidebar}>
-          {friends.length > 0 ? (
-            <Friends friends={friends} />
-          ) : (
-            <RightSIdeBarLoading />
-          )}
+        <div className={classes.leftSidebar}>
+          <Friends />
         </div>
         <SideBar
           username={username}
@@ -68,8 +50,19 @@ const Home = ({ classes }) => {
         </div>
         <div className={classes.rightSidebar}>Right Side Bar</div>
       </div>
-    </Fragment>
+    </React.Fragment>
   );
 };
 
-export default withStyles(styles)(Home);
+const mapStateToProps = state => ({
+  loggedInUser: state.user.userData
+});
+
+const mapDispatchToProps = {
+  fetchUserData
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Home));

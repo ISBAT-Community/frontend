@@ -7,6 +7,7 @@ import PostLoading from "../posts/Post.loading";
 import { fetchPosts } from "../../redux/actions/post";
 import { connect } from "react-redux";
 import { styles } from "./postCard.styles.module";
+import { Divider } from "@material-ui/core";
 
 const PostCard = ({ fetchPosts, loading, post: { postList }, classes }) => {
   const fetchPostsRef = useRef(() => {});
@@ -23,15 +24,6 @@ const PostCard = ({ fetchPosts, loading, post: { postList }, classes }) => {
     <div className="post column">
       <div className={classes.post_content}>
         {loading ? (
-          [...new Array(6)].map((ele, index) => <PostLoading key={index} />)
-        ) : postList.length > 0 ? (
-          postList.map(post => (
-            <div key={post._id}>
-              <Post key={post._id} post={post} />
-              <hr />
-            </div>
-          ))
-        ) : (
           <div className={classes.no_post}>
             <div style={{ width: "100%" }}>
               <Typography className={classes.text} variant="body1">
@@ -39,6 +31,19 @@ const PostCard = ({ fetchPosts, loading, post: { postList }, classes }) => {
               </Typography>
             </div>
           </div>
+        ) : postList.length > 0 ? (
+          postList.map(post => (
+            <div key={post._id}>
+              <Post key={post._id} post={post} />
+              <Divider className={classes.divider} />
+            </div>
+          ))
+        ) : (
+          [...new Array(6)].map((ele, index) => (
+            <div key={index}>
+              <PostLoading />
+            </div>
+          ))
         )}
       </div>
     </div>
