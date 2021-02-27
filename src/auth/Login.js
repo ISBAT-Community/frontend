@@ -11,9 +11,9 @@ import OutlinedInput from "@material-ui/core/OutlinedInput";
 import axios from "axios";
 import logo from "../assets/images/logo.svg";
 import { styles } from "./lolgin.styles.module";
-
+import PropTypes from "prop-types";
 function Login({ classes, history }) {
-  const [values, setValues] = useState({
+  const [state, setState] = useState({
     email: "",
     password: "",
     inputBorder: null,
@@ -28,18 +28,18 @@ function Login({ classes, history }) {
   const [passwordError, setPasswordError] = useState("");
 
   const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
+    setState({ ...state, [prop]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setState({ ...state, showPassword: !state.showPassword });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     const userData = {
-      email: values.email,
-      password: values.password
+      email: state.email,
+      password: state.password
     };
 
     try {
@@ -96,7 +96,7 @@ function Login({ classes, history }) {
                     : classes.inputFieldWithBorder
                 }
                 type="email"
-                value={values.email}
+                value={state.email}
                 onChange={handleChange("email")}
                 error={emailError ? true : false}
               />
@@ -122,8 +122,8 @@ function Login({ classes, history }) {
                     : classes.inputFieldWithBorder
                 }
                 id="outlined-adornment-password"
-                type={values.showPassword ? "text" : "password"}
-                value={values.password}
+                type={state.showPassword ? "text" : "password"}
+                value={state.password}
                 onChange={handleChange("password")}
                 error={passwordError ? true : false}
                 endAdornment={
@@ -133,7 +133,7 @@ function Login({ classes, history }) {
                       onClick={handleClickShowPassword}
                       edge="end"
                     >
-                      {values.showPassword && values.password ? (
+                      {state.showPassword && state.password ? (
                         <Visibility />
                       ) : (
                         <VisibilityOff />
@@ -198,5 +198,10 @@ function Login({ classes, history }) {
     </div>
   );
 }
+
+Login.propTypes = {
+  classes: PropTypes.object,
+  history: PropTypes.object
+};
 
 export default withStyles(styles)(Login);

@@ -7,11 +7,10 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 const useStyles = makeStyles({
   onlineUser: {
     width: "100%",
-    padding: "1rem .5rem",
-    height: "90vh",
-    overflowY: "scroll",
-    marginTop: "10%"
-    // background: colors.textColor
+    padding: "0rem .5rem",
+    height: "85vh",
+    marginTop: 10,
+    backgroundColor: colors.whiteColor
   },
   user: {
     display: "flex",
@@ -22,16 +21,26 @@ const useStyles = makeStyles({
     width: 30,
     height: 30,
     marginRight: 3,
+    opacity: 0.4,
     borderRadius: "50%",
-    background: colors.secondary_color
+    background: colors.lightBlueGray
   },
   name: {
     width: 100,
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     height: "1.3rem",
+    opacity: 0.4,
     borderRadius: 10,
-    background: colors.secondary_color
+    background: colors.lightBlueGray
+  },
+  LinearProgress: {
+    height: 13,
+    opacity: 0.4,
+    margin: ".05rem 0",
+    borderRadius: 20,
+    background: colors.lightgray
   }
 });
 
@@ -40,9 +49,9 @@ const User = () => {
   return (
     <div className={classes.user}>
       <Typography className={classes.img}></Typography>
-      <Typography className={classes.name} variant="caption">
-        <LinearProgress />
-      </Typography>
+      <div className={classes.name}>
+        <LinearProgress className={classes.LinearProgress} />
+      </div>
     </div>
   );
 };
@@ -51,7 +60,7 @@ function RightSIdeBarLoading() {
   const classes = useStyles();
   return (
     <div className={classes.onlineUser}>
-      {[...new Array(10)].map((i, x) => (
+      {[...new Array(17)].map((i, x) => (
         <User key={x} />
       ))}
     </div>

@@ -1,32 +1,50 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
+import More from "./More";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import PropTypes from "prop-types";
+import PostAction from "./PostAction";
 import { styles } from "./post.styles.module";
 import PostProfilePic from "./PostProfilePic";
 import Tooltip from "@material-ui/core/Tooltip";
-import More from "./More";
+import relativeTime from "dayjs/plugin/relativeTime";
+import Typography from "@material-ui/core/Typography";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-function Post({ post: { body, createdAt, user }, classes }) {
+const Post = ({ post: { body, createdAt, user }, classes }) => {
   dayjs.extend(relativeTime);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [state, setState] = React.useState({
+    hover: null,
+    anchorEl: null
+  });
+
   const handleClick = event => {
     event.preventDefault();
-    setAnchorEl(event.currentTarget);
+    setState({ ...state, anchorEl: event.currentTarget });
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setState({ ...state, anchorEl: null });
   };
 
-  const open = Boolean(anchorEl);
+  const open = Boolean(state.anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const onMouseEnter = () => {
+    setState(preState => ({ ...preState, hover: true }));
+  };
+
+  const onMouseLeave = () => {
+    setState(prevState => ({ ...prevState, hover: false }));
+  };
+
   return (
-    <div className={classes.post}>
+    <div
+      className={classes.post}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <PostProfilePic userInfo={user} />
       <div className={classes.postLink}>
         <div className={classes.post__content}>
@@ -38,15 +56,15 @@ function Post({ post: { body, createdAt, user }, classes }) {
               </span>
             </div>
             <div className={classes.post_action}>
-              <Tooltip
-                style={{ background: "white !important" }}
-                placement="top"
-                title="More"
-              >
-                <MoreVertIcon onClick={handleClick} />
+              {state.hover ? <PostAction /> : ""}
+              <Tooltip placement="top" title="More">
+                <MoreVertIcon
+                  onClick={handleClick}
+                  className={classes.moreOptions}
+                />
               </Tooltip>
               <More
-                anchorEl={anchorEl}
+                anchorEl={state.anchorEl}
                 open={open}
                 id={id}
                 handleClose={handleClose}
@@ -62,6 +80,12 @@ function Post({ post: { body, createdAt, user }, classes }) {
       </div>
     </div>
   );
-}
+};
+
+// props type validation
+Post.prototype = {
+  classes: PropTypes.object,
+  post: PropTypes.object
+};
 
 export default withStyles(styles)(Post);

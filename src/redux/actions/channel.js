@@ -1,7 +1,7 @@
 import * as actionTypes from "./actonTypes";
 import axios from "axios";
 
-//Channel actionType creator
+//fetch Channel actionType creator
 const fetchChannelStart = () => ({
   type: actionTypes.FETCH_CHANNEL_DATA_REQUEST
 });
@@ -16,12 +16,41 @@ const fetchChannelFail = error => ({
   error: error
 });
 
-//channel action creator
+//create channel actionType creator
+const createChannelStart = () => ({
+  type: actionTypes.CREATE_CHANNEL_REQUEST
+});
+
+const createChannelSuccess = channel => ({
+  type: actionTypes.CREATE_CHANNEL_SUCCESS,
+  channel
+});
+
+const createChannelFail = error => ({
+  type: actionTypes.CREATE_CHANNEL_FAIL,
+  error
+});
+
+//create channel action creator
+export const createChannel = channelData => async dispatch => {
+  try {
+    dispatch(createChannelStart());
+    const response = await axios.post(
+      "http://localhost:9090/channels",
+      channelData
+    );
+    dispatch(createChannelSuccess(response.data));
+  } catch (error) {
+    dispatch(createChannelFail(error.message));
+  }
+};
+
+//fetch channel action creator
 export const fetchChannels = () => async dispatch => {
   try {
     dispatch(fetchChannelStart());
     const response = await axios.get("http://localhost:9090/channels");
-    if (response.data) dispatch(fetchChannelSuccess(response.data));
+    dispatch(fetchChannelSuccess(response.data));
   } catch (error) {
     dispatch(fetchChannelFail(error.message));
   }

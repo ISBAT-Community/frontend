@@ -6,6 +6,7 @@ const initialState = {
   loading: false
 };
 
+//fetch channel.
 const fetchChannelDataStart = (state, action) => {
   return mergeObjects(state, { loading: true, channelList: [] });
 };
@@ -20,6 +21,11 @@ const fetchChannelDataSuccess = (state, action) => {
 const fatchChannelDataFail = (state, action) => {
   return mergeObjects(state, { loading: false });
 };
+
+//create channel
+// const createChannelStart = (state, action) => {
+//   return mergeObjects(state, {loading: true})
+// }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

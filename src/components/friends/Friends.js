@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import PostProfilePic from "../posts/PostProfilePic";
 import RightSideBarLoading from "../loading/RightSIdeBarLoading";
 import Tooltip from "@material-ui/core/Tooltip";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchFriends } from "../../redux/actions/friends";
 
@@ -24,44 +25,52 @@ function Friends({ classes, fetchFriends, friendList, loading }) {
       <div className={classes.members_status}>
         <Typography>Members status __</Typography>
       </div>
-      {loading ? (
-        <RightSideBarLoading />
-      ) : (
-        friendList.map(friend => (
-          <div key={friend._id} className={classes.user}>
-            <div className={classes.profilePic}>
-              <PostProfilePic userInfo={friend} />
-            </div>
-            <Typography className={classes.name} variant="caption">
-              <Tooltip
-                placement="right-start"
-                title={
-                  friend.status === "offline" ? (
-                    <p className={classes.tooltip}>Offline</p>
-                  ) : (
-                    <p className={classes.tooltip}>Online</p>
-                  )
-                }
-              >
-                <div
-                  className={
-                    friend.status === "offline"
-                      ? classes.offline
-                      : classes.online
+      <div className={classes.friends_container}>
+        {!loading ? (
+          friendList.map(friend => (
+            <div key={friend._id} className={classes.user}>
+              <div className={classes.profilePic}>
+                <PostProfilePic userInfo={friend} />
+              </div>
+              <Typography className={classes.name} variant="caption">
+                <Tooltip
+                  placement="right-start"
+                  title={
+                    friend.status === "offline" ? (
+                      <p className={classes.tooltip}>Offline</p>
+                    ) : (
+                      <p className={classes.tooltip}>Online</p>
+                    )
                   }
-                ></div>
-              </Tooltip>
-              {friend.username}
-            </Typography>
-          </div>
-        ))
-      )}
+                >
+                  <div
+                    className={
+                      friend.status === "offline"
+                        ? classes.offline
+                        : classes.online
+                    }
+                  ></div>
+                </Tooltip>
+                {friend.username}
+              </Typography>
+            </div>
+          ))
+        ) : (
+          <RightSideBarLoading />
+        )}
+      </div>
     </div>
   );
 }
 
+Friends.propTypes = {
+  loading: PropTypes.bool,
+  friendList: PropTypes.array
+};
+
 const mapStateToProps = state => ({
-  friendList: state.friend.friendList
+  friendList: state.friend.friendList,
+  loading: state.friend.loading
 });
 
 const mapDispatchToProps = {

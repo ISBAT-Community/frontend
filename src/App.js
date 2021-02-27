@@ -30,15 +30,11 @@ function App() {
     <MuiThemeProvider theme={theme}>
       <Router>
         <Switch>
-          <Route path="/signup" exact component={Register} />
           <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={Register} />
           <Route path="/settings" exact component={Settings} />
           <Route path="/post/:id" exact component={SinglePost} />
-          <ProtectedRoute
-            path="/"
-            authenticated={authenticated}
-            component={Home}
-          />
+          <ProtectedRoute authenticated={authenticated} component={Home} />
         </Switch>
       </Router>
     </MuiThemeProvider>

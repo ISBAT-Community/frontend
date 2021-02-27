@@ -14,7 +14,7 @@ const styles = {
     opacity: 0.4,
     margin: ".05rem 0",
     borderRadius: 20,
-    background: colors.secondary_color
+    background: colors.lightBlueGray
   },
   post: {
     width: "100%",
@@ -26,14 +26,14 @@ const styles = {
     width: 20,
     height: 20,
     borderRadius: 50,
-    background: colors.secondary_color,
+    background: colors.lightBlueGray,
     color: "gray"
   },
   profilePic: {
     width: 40,
     height: 40,
     borderRadius: 50,
-    background: colors.secondary_color
+    background: colors.lightBlueGray
   },
   post_body: {
     height: "10px",
@@ -41,7 +41,7 @@ const styles = {
     borderRadius: 50,
     marginTop: ".6rem",
     opacity: 0.6,
-    background: colors.secondary_color
+    background: colors.lightBlueGray
   },
   post_body2: {
     height: "10px",
@@ -49,7 +49,7 @@ const styles = {
     opacity: 0.5,
     borderRadius: 50,
     marginTop: ".6rem",
-    background: colors.secondary_color
+    background: colors.lightBlueGray
   },
   post_body3: {
     height: "10px",
@@ -57,7 +57,24 @@ const styles = {
     opacity: 0.4,
     borderRadius: 50,
     marginTop: ".6rem",
-    background: colors.secondary_color
+    background: colors.lightBlueGray
+  },
+
+  post_body4: {
+    height: "10px",
+    width: "150px",
+    opacity: 0.4,
+    borderRadius: 50,
+    marginTop: ".6rem",
+    background: colors.lightBlueGray
+  },
+  post_body5: {
+    height: "10px",
+    width: "70px",
+    opacity: 0.4,
+    borderRadius: 50,
+    marginTop: ".6rem",
+    background: colors.lightBlueGray
   },
   post_info: {
     display: "flex"
@@ -100,6 +117,15 @@ const PostLoading = ({ classes }) => {
           </div>
         </div>
         <div className={classes.post_body}>
+          <LinearProgress className={classes.LinearProgress} />
+        </div>
+        <div className={classes.post_body5}>
+          <LinearProgress className={classes.LinearProgress} />
+        </div>
+        <div className={classes.post_body3}>
+          <LinearProgress className={classes.LinearProgress} />
+        </div>
+        <div className={classes.post_body4}>
           <LinearProgress className={classes.LinearProgress} />
         </div>
         <div className={classes.post_body2}>

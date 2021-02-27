@@ -24,7 +24,7 @@ export const styles = {
     justifyContent: "space-between"
   },
   user_channel_container: {
-    overflow: "scroll",
+    // overflow: "scroll",
     height: "250px",
     overflowX: "hidden"
   }
