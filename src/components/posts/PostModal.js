@@ -22,14 +22,14 @@ function PostModal() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Button onClick={handleClickOpen("paper")}>{"<>"} </Button>
       <div>
         <Dialog
           open={open}
-          className={classes.dialog}
-          onClose={handleClose}
           scroll={scroll}
+          onClose={handleClose}
+          className={classes.dialog}
           aria-labelledby="scroll-dialog-title"
           aria-describedby="scroll-dialog-description"
         >
@@ -60,6 +60,6 @@ function PostModal() {
           </DialogActions>
         </Dialog>
       </div>
-    </div>
+    </React.Fragment>
   );
 }

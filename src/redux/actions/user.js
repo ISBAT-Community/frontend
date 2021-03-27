@@ -20,7 +20,7 @@ const fetchUserFail = error => ({
 export const fetchUserData = () => async dispatch => {
   try {
     dispatch(fetchUserStart());
-    const response = await axios.get("http://localhost:9090/user");
+    const response = await axios.get("/user");
     dispatch(fetchUserSuccess(response.data));
   } catch (error) {
     dispatch(fetchUserFail(error.message));

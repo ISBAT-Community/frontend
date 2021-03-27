@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import EmojiPicker from "emoji-picker-react";
 import Button from "@material-ui/core/Button";
@@ -8,8 +8,8 @@ import AttachFileIcon from "@material-ui/icons/AttachFile";
 import withStyles from "@material-ui/core/styles/withStyles";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 
-const PostForm = ({ classes }) => {
-  const [state, setState] = useState({
+const PostForm = ({ classes, channelName, channelId }) => {
+  const [state, setState] = React.useState({
     msg: "",
     emojiPicker: null
   });
@@ -20,10 +20,14 @@ const PostForm = ({ classes }) => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const postData = {
+    const messageData = {
       body: state.msg
     };
-    await axios.post("http://localhost:9090/posts", postData);
+
+    await axios.post(
+      `http://localhost:9090/messages/${channelId}`,
+      messageData
+    );
     setState({ ...state, msg: "" });
   };
 
@@ -44,7 +48,7 @@ const PostForm = ({ classes }) => {
         type="text"
         name="msg"
         className={classes.textInput}
-        placeholder="type something"
+        placeholder={`Message # ${channelName}`}
         autoFocus
         value={state.msg}
         onChange={e => handleInput(e.target.value)}

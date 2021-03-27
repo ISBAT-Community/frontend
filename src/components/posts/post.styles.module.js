@@ -6,6 +6,7 @@ export const styles = {
     display: "flex",
     paddingLeft: 5
   },
+
   btn_thumbsUp: {
     fontSize: "1.2rem",
     color: "yellow",

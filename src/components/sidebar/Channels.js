@@ -1,4 +1,5 @@
 import Modal from "../modal/Modal";
+import PropTypes from "prop-types";
 import Channel from "../channels/Channel";
 import { useEffect, useRef } from "react";
 import { styles } from "./channels.styles.module";
@@ -44,6 +45,13 @@ const Channels = ({ fetchChannels, channels, loading, classes }) => {
       </div>
     </div>
   );
+};
+
+Channels.propTypes = {
+  loading: PropTypes.bool,
+  channels: PropTypes.array,
+  classes: PropTypes.object,
+  fetchChannels: PropTypes.func
 };
 
 const mapStateToProps = state => ({

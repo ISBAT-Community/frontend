@@ -29,13 +29,13 @@ export const styles = {
     // background: colors.dark_background_color
   },
   main__register_contianer: {
-    width: "55%",
+    width: "27%",
     display: "flex",
     background: colors.background_color,
     boxShadow: `0 2px 10px 0 rgba(0,0,0,.2)`
   },
   register__container: {
-    width: "70%",
+    width: "100%",
     borderRadius: 10,
     justifyContent: "center"
   },
@@ -56,7 +56,7 @@ export const styles = {
   },
   form: {
     width: "90%",
-    margin: "3rem auto",
+    margin: "1rem auto",
     display: "flex",
     flexDirection: "column"
   },

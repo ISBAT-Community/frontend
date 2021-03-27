@@ -5,6 +5,7 @@ export const styles = {
     fontSize: "1rem",
     fontWeight: "bolder"
   },
+
   register: {
     width: "100%",
     height: "100vh",
@@ -13,38 +14,40 @@ export const styles = {
     justifyContent: "center",
     background: colors.dark_background_color
   },
+
   register__container: {
-    width: "450px",
+    width: "27%",
     borderRadius: 10,
     justifyContent: "center",
-    background: "#36393f",
+    background: colors.background_color,
     boxShadow: `0 2px 10px 0 rgba(0,0,0,.2)`
   },
+
   inputField: {
     fontSize: ".95rem",
     fontFamily: font.fontFamily,
-    color: "white !important",
+    color: colors.white,
     margin: ".3rem 0",
     border: `1px solid ${colors.borderColor} !important`
   },
   form: {
     width: "90%",
-    margin: "3rem auto",
+    margin: "1rem auto",
     display: "flex",
     flexDirection: "column"
   },
   label: {
-    marginTop: ".4rem",
-    color: `${colors.textColor} !important`,
     fontSize: ".9rem",
-    textTransform: "capitalize"
+    marginTop: ".4rem",
+    textTransform: "capitalize",
+    color: `${colors.textColor} !important`
   },
   button: {
     margin: "1rem 0",
-    color: colors.white,
     fontWeight: "bold",
-    background: `${colors.lightBlue} !important`,
-    textTransform: "capitalize"
+    textTransform: "capitalize",
+    color: colors.background_color,
+    background: `${colors.lightBlue} !important`
   },
   link: {
     fontSize: "80%",
