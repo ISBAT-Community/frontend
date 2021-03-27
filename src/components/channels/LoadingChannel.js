@@ -14,27 +14,26 @@ const useStyles = makeStyles({
     margin: "8px 0",
     display: "inline-block",
     borderRadius: 20
-    //  background: colors.secondary_color
   },
   LinearProgress: {
     height: 13,
     opacity: 0.4,
     margin: ".1rem 0",
     borderRadius: 20,
-    background: colors.secondary_color
+    background: colors.lightBlueGray
   },
   channel_settings: {
-    width: 25,
-    height: 25,
-    background: colors.secondary_color,
+    width: 20,
+    height: 20,
+    background: colors.lightBlueGray,
     borderRadius: 20,
-    marginTop: ".5rem",
+    margin: ".5rem 0.3rem 0 0rem",
     color: colors.textColor
   },
   hashTag: {
     fontSize: "1.3rem",
     fontWeight: "bold",
-    color: colors.secondary_color,
+    color: colors.lightBlueGray,
     fontFamily: font.fontFamily
   }
 });

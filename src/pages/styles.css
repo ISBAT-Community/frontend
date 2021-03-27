@@ -4,8 +4,10 @@
 
 .actions {
   width: 10%;
+  overflow-y: scroll;
   color: var(--icons);
   padding: 10px;
+  height: 100vh;
   margin-right: 10px;
 }
 

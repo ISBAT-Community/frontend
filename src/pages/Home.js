@@ -9,18 +9,90 @@ import { styles } from "./home.styles.module.js";
 import PostForm from "../components/posts/PostForm";
 import { connect } from "react-redux";
 import { fetchUserData } from "../redux/actions/user";
+import { fetchChannelMessages } from "../redux/actions/channel";
+import axios from "axios";
+import NoMessages from "../components/loading/NoMessages";
+import Message from "../components/message/Message";
+import Divider from "@material-ui/core/Divider";
 
-const Home = ({ classes, fetchUserData, loggedInUser }) => {
+const Home = ({
+  classes,
+  channel_id,
+  isOpen,
+  // singleChannelData,
+  fetchUserData,
+  loggedInUser
+}) => {
+  const [state, setState] = React.useState({
+    singleChannelData: {}
+  });
+
+  const [channelMessages, setChannelMessages] = React.useState([]);
+
+  const { name } = state.singleChannelData;
+
+  const channelName = name;
+
+  const { username, createdAt, bio, profilePic } = loggedInUser;
+
   const fetchUserDataRef = React.useRef(() => {});
+  const fetchChannelDataRef = React.useRef(() => {});
+  // const fetchSingleChannelDataRef = React.useRef(() => {});
+  const fetchChannelMessagesRef = React.useRef(() => {});
+  const fetchSpecificChannelMessagesRef = React.useRef(() => {});
+
   React.useEffect(() => {
     fetchUserDataRef.current();
-  }, []);
+    fetchChannelMessagesRef.current(channel_id);
+    fetchChannelDataRef.current(channel_id);
+    fetchSpecificChannelMessagesRef.current();
+    // fetchSingleChannelDataRef.current(channel_id);
+  }, [channel_id]);
 
   fetchUserDataRef.current = () => {
     fetchUserData();
   };
 
-  const { username, createdAt, bio, profilePic } = loggedInUser;
+  fetchSpecificChannelMessagesRef.current = () => {
+    fetchSpecificChannelMessages();
+  };
+
+  // fetchSingleChannelDataRef.current = () => {
+  //   fetchSingleChannelData(channel_id);
+  // };
+
+  fetchChannelMessagesRef.current = () => {
+    fetchChannelMessages(channel_id);
+  };
+
+  fetchChannelMessagesRef.current = () => {
+    fetchChannelMessages(channel_id);
+  };
+
+  fetchChannelDataRef.current = () => {
+    fetchChannelData(channel_id);
+  };
+
+  const fetchChannelData = () => {
+    if (channel_id !== undefined && channel_id !== null) {
+      axios.get(`/channels/${channel_id}`).then(response => {
+        setState({ ...state, singleChannelData: response.data });
+      });
+    }
+  };
+
+  const fetchSpecificChannelMessages = () => {
+    try {
+      axios.get(`/messages/${channel_id}`).then(response => {
+        setChannelMessages(response.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(channelMessages);
+
   return (
     <React.Fragment>
       <Header />
@@ -35,17 +107,52 @@ const Home = ({ classes, fetchUserData, loggedInUser }) => {
           profilePic={profilePic}
         />
         <div className={classes.main}>
-          <div className={classes.main_content}>
-            <Typography className={classes.main_content_title} variant="body2">
-              {"# General"}
-            </Typography>
-          </div>
-          <div className={classes.main_column}>
-            <PostCard />
-          </div>
-
+          {isOpen ? (
+            <React.Fragment>
+              <div className={classes.main_content}>
+                <Typography
+                  className={classes.main_content_title}
+                  variant="body2"
+                >
+                  {channelName === undefined ? "loading.." : "# " + channelName}
+                </Typography>
+              </div>
+              <div className={classes.main_column}>
+                <div className={classes.message}>
+                  {channelMessages ? (
+                    channelMessages.map(message => (
+                      <React.Fragment>
+                        <Message
+                          user={message.user}
+                          body={message.body}
+                          createdAt={message.createdAt}
+                        />
+                        <Divider className={classes.divider} />
+                      </React.Fragment>
+                    ))
+                  ) : (
+                    <NoMessages name={channelName} />
+                  )}
+                </div>
+              </div>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div className={classes.main_content}>
+                <Typography
+                  className={classes.main_content_title}
+                  variant="body2"
+                >
+                  {"# General"}
+                </Typography>
+              </div>
+              <div className={classes.main_column}>
+                <PostCard />
+              </div>
+            </React.Fragment>
+          )}
           <div className={classes.bottom}>
-            <PostForm />
+            <PostForm channelName={channelName} channelId={channel_id} />
           </div>
         </div>
         <div className={classes.rightSidebar}>Right Side Bar</div>
@@ -55,11 +162,15 @@ const Home = ({ classes, fetchUserData, loggedInUser }) => {
 };
 
 const mapStateToProps = state => ({
-  loggedInUser: state.user.userData
+  loggedInUser: state.user.userData,
+  channel_id: state.UI.channel_id,
+  isOpen: state.UI.isOpen,
+  singleChannelData: state.channel.singleChannelData
 });
 
 const mapDispatchToProps = {
-  fetchUserData
+  fetchUserData,
+  fetchChannelMessages
 };
 
 export default connect(

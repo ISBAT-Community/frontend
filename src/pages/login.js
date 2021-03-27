@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from "react";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -59,22 +59,23 @@ const useStyles = makeStyles({
 });
 
 function Login(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  // const [errors, setErrors] = useState("");
+  const [state, setState] = React.useState({
+    email: "",
+    password: ""
+  });
 
-  const handleEmail = value => {
-    setEmail(value);
-  };
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // // const [errors, setErrors] = useState("");
 
-  const handlePassword = value => {
-    setPassword(value);
-  };
+  const handleEmail = value => setState({ ...state, email: value });
+
+  const handlePassword = value => setState({ ...state, password: value });
 
   const handleSubmit = async () => {
     const userData = {
-      email,
-      password
+      email: state.email,
+      password: state.password
     };
 
     try {

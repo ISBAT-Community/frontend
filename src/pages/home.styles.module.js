@@ -1,4 +1,4 @@
-import { colors, font } from "../components/constants/colors";
+import { colors } from "../components/constants/colors";
 
 export const styles = {
   "@global": {
@@ -15,6 +15,7 @@ export const styles = {
       background: colors.dark_background_color
     }
   },
+
   bottom: {
     width: "50%",
     display: "flex",
@@ -32,6 +33,18 @@ export const styles = {
     margin: "0 auto",
     paddingTop: "3.5%",
     position: "relative"
+  },
+
+  //Message Styles
+  message: {
+    width: "100%",
+    padding: ".5rem",
+    display: "flex",
+    flexDirection: "column"
+  },
+
+  divider: {
+    margin: 10
   },
 
   leftSidebar: {
@@ -53,10 +66,11 @@ export const styles = {
     alignItems: "center"
   },
   main_content_title: {
-    color: colors.white,
-    padding: "0.8rem",
+    // color: colors.white,
+    padding: ".8rem",
     fontWeight: 900,
-    fontFamily: font.fontFamily
+    fontSize: "1rem"
+    // fontFamily: font.fontFamily
   },
   main_column: {
     width: "100%",

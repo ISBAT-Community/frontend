@@ -20,7 +20,7 @@ const fetchFriendFail = error => ({
 export const fetchFriends = () => async dispatch => {
   try {
     dispatch(fetchFriendStart());
-    const response = await axios.get("http://localhost:9090/users");
+    const response = await axios.get("/users");
     dispatch(fetchFriendSuccess(response.data));
   } catch (error) {
     dispatch(fetchFriendFail(error.message));

@@ -6,6 +6,7 @@ export const styles = {
     display: "flex",
     paddingLeft: 5
   },
+
   btn_thumbsUp: {
     fontSize: "1.2rem",
     color: "yellow",
@@ -23,9 +24,11 @@ export const styles = {
   post_link: {
     textDecoration: "none"
   },
-  // post_action: {
-  //   marginRight: "1rem"
-  // },
+  post_action: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
   emoji: {
     color: "gray"
   },
@@ -72,6 +75,10 @@ export const styles = {
     textDecoration: "none"
   },
 
+  moreOptions: {
+    zIndex: 10,
+    cursor: "pointer"
+  },
   replyInputContainer: {
     width: "80%",
     display: "flex",

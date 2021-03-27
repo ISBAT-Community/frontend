@@ -1,4 +1,5 @@
-import Modal from "../Modal";
+import Modal from "../modal/Modal";
+import PropTypes from "prop-types";
 import Channel from "../channels/Channel";
 import { useEffect, useRef } from "react";
 import { styles } from "./channels.styles.module";
@@ -8,7 +9,7 @@ import LoadingChanel from "../channels/LoadingChannel";
 import { connect } from "react-redux";
 import { fetchChannels } from "../../redux/actions/channel";
 
-function Channels({ fetchChannels, channels, loading, classes }) {
+const Channels = ({ fetchChannels, channels, loading, classes }) => {
   useEffect(() => {
     fetchChannelsRef.current();
   }, []);
@@ -27,23 +28,35 @@ function Channels({ fetchChannels, channels, loading, classes }) {
         <Modal title="Create New Channel" />
       </div>
       <div className={classes.user_channel_container}>
-        {loading
-          ? "Your don't have channel yet"
-          : channels.length > 0
-          ? channels.map(channel => (
-              <Channel name={channel.name} id={channel._id} key={channel._id} />
-            ))
+        {!loading
+          ? channels.length <= 0
+            ? "Your don't have channel yet"
+            : channels.map(channel => (
+                <Channel
+                  name={channel.name}
+                  id={channel._id}
+                  visibility={channel.visibility}
+                  key={channel._id}
+                />
+              ))
           : [...new Array(7)].map((ele, index) => (
               <LoadingChanel key={index} />
             ))}
       </div>
     </div>
   );
-}
+};
+
+Channels.propTypes = {
+  loading: PropTypes.bool,
+  channels: PropTypes.array,
+  classes: PropTypes.object,
+  fetchChannels: PropTypes.func
+};
 
 const mapStateToProps = state => ({
   channels: state.channel.channelList,
-  loading: state.loading
+  loading: state.channel.loading
 });
 
 const mapDispatchToProps = {

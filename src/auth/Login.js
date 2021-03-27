@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import * as React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Typography, Button, Link } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,37 +9,39 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import axios from "axios";
-import logo from "../assets/images/logo.svg";
+import logo from "./logo.svg";
 import { styles } from "./lolgin.styles.module";
+import PropTypes from "prop-types";
 
 function Login({ classes, history }) {
-  const [values, setValues] = useState({
+  const [state, setState] = React.useState({
     email: "",
+    show: null,
     password: "",
+    emailError: "",
     inputBorder: null,
-    showPassword: false
+    passwordError: "",
+    showPassword: false,
+    showInputBorder: null,
+    onhoverPassword: null
   });
 
-  const [show, setShow] = useState(null);
-  const [onhoverPassword, setOnhoverPassword] = useState(null);
-  const [showInputBorder, setShowInputBorder] = useState(null);
-  const [userNumbers, setUserNumbers] = useState(0);
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  // const [userNumbers, setUserNumbers] = useState(0);
+  // const [passwordError, setPasswordError] = useState("");
 
   const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
+    setState({ ...state, [prop]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setState({ ...state, showPassword: !state.showPassword });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     const userData = {
-      email: values.email,
-      password: values.password
+      email: state.email,
+      password: state.password
     };
 
     try {
@@ -55,19 +57,13 @@ function Login({ classes, history }) {
         history.push("/");
       }
     } catch (error) {
-      setPasswordError(error.response.data.errors[0].password);
-      setEmailError(error.response.data.errors[0].email);
+      setState({ ...state, emailError: error.response.data.errors[0].email });
+      setState({
+        ...state,
+        passwordError: error.response.data.errors[0].password
+      });
     }
   };
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const users = await axios.get("http://localhost:9090/users");
-      setUserNumbers(users.data.length);
-    };
-
-    fetchUser();
-  }, []);
 
   return (
     <div className={classes.register}>
@@ -75,9 +71,9 @@ function Login({ classes, history }) {
         <div className={classes.register__container}>
           <div className={classes.formHeader}>
             <img className={classes.logo} src={logo} alt="logo" />
-            {/* <Typography className={classes.title} variant="body2">
-              Discord
-            </Typography> */}
+            <Typography className={classes.policy} variant="body2">
+              Welcome Back to the Community
+            </Typography>
           </div>
           <form className={classes.form} action="/login" method="POST">
             <FormControl variant="outlined">
@@ -88,20 +84,24 @@ function Login({ classes, history }) {
                 E-mail
               </InputLabel>
               <OutlinedInput
-                onMouseEnter={() => setShowInputBorder(true)}
-                onMouseLeave={() => setShowInputBorder(false)}
+                onMouseEnter={() =>
+                  setState({ ...state, showInputBorder: true })
+                }
+                onMouseLeave={() =>
+                  setState({ ...state, showInputBorder: false })
+                }
                 className={
-                  !showInputBorder
+                  !state.howInputBorder
                     ? classes.inputField
                     : classes.inputFieldWithBorder
                 }
                 type="email"
-                value={values.email}
+                value={state.email}
                 onChange={handleChange("email")}
-                error={emailError ? true : false}
+                error={state.emailError ? true : false}
               />
               <Typography className={classes.error} variant="caption">
-                {emailError && emailError}
+                {state.emailError && state.emailError}
               </Typography>
             </FormControl>
 
@@ -114,18 +114,22 @@ function Login({ classes, history }) {
                 Password
               </InputLabel>
               <OutlinedInput
-                onMouseEnter={() => setOnhoverPassword(true)}
-                onMouseLeave={() => setOnhoverPassword(false)}
+                onMouseEnter={() =>
+                  setState({ ...state, onhoverPassword: true })
+                }
+                onMouseLeave={() =>
+                  setState({ ...state, onhoverPassword: false })
+                }
                 className={
-                  !onhoverPassword
+                  !state.onhoverPassword
                     ? classes.inputField
                     : classes.inputFieldWithBorder
                 }
                 id="outlined-adornment-password"
-                type={values.showPassword ? "text" : "password"}
-                value={values.password}
+                type={state.showPassword ? "text" : "password"}
+                value={state.password}
                 onChange={handleChange("password")}
-                error={passwordError ? true : false}
+                error={state.passwordError ? true : false}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -133,7 +137,7 @@ function Login({ classes, history }) {
                       onClick={handleClickShowPassword}
                       edge="end"
                     >
-                      {values.showPassword && values.password ? (
+                      {state.showPassword && state.password ? (
                         <Visibility />
                       ) : (
                         <VisibilityOff />
@@ -144,12 +148,12 @@ function Login({ classes, history }) {
                 labelWidth={70}
               />
               <Typography className={classes.error} variant="caption">
-                {passwordError && passwordError}
+                {state.passwordError && state.passwordError}
               </Typography>
             </FormControl>
 
             <Link
-              className={!show ? classes.link : classes.link_2}
+              className={!state.show ? classes.link : classes.link_2}
               to="/forgotten-password"
             >
               forgot password
@@ -164,9 +168,9 @@ function Login({ classes, history }) {
               Sign in
             </Button>
             <a
-              onMouseEnter={() => setShow(true)}
-              onMouseLeave={() => setShow(false)}
-              className={!show ? classes.link : classes.link_2}
+              onMouseEnter={() => setState({ ...state, show: true })}
+              onMouseLeave={() => setState({ ...state, show: false })}
+              className={!state.show ? classes.link : classes.link_2}
               href="/signup"
             >
               New here?, Welcome just click here
@@ -179,24 +183,14 @@ function Login({ classes, history }) {
             </Typography>
           </form>
         </div>
-        <div className={classes.layout}>
-          <div className={classes.formHeader}>
-            <Typography className={classes.title} variant="body2">
-              Welcome back
-            </Typography>
-            <Typography className={classes.subtitle} variant="caption">
-              Join the Isbat Developers Community of over &nbsp;
-              <Typography className={classes.usernumber} variant="caption">
-                {userNumbers && userNumbers}+
-              </Typography>
-              &nbsp; developers who are willing to share their knowledge
-              <span className={classes.dot}>.</span>
-            </Typography>
-          </div>
-        </div>
       </div>
     </div>
   );
 }
+
+Login.propTypes = {
+  classes: PropTypes.object,
+  history: PropTypes.object
+};
 
 export default withStyles(styles)(Login);

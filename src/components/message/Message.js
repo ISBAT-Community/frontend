@@ -1,17 +1,19 @@
 import React from "react";
-import More from "./More";
+import More from "../posts/More";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
-import PostAction from "./PostAction";
-import { styles } from "./post.styles.module";
-import PostProfilePic from "./PostProfilePic";
+import PostAction from "../posts/PostAction";
+import { styles } from "../posts/post.styles.module";
+import PostProfilePic from "../posts/PostProfilePic";
 import Tooltip from "@material-ui/core/Tooltip";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Typography from "@material-ui/core/Typography";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-const Post = ({ post: { body, createdAt, user }, classes }) => {
+const Message = props => {
+  const { body, createdAt, user, classes } = props;
+
   dayjs.extend(relativeTime);
 
   const [state, setState] = React.useState({
@@ -83,9 +85,8 @@ const Post = ({ post: { body, createdAt, user }, classes }) => {
 };
 
 // props type validation
-Post.prototype = {
-  classes: PropTypes.object,
-  post: PropTypes.object
+Message.prototype = {
+  classes: PropTypes.object
 };
 
-export default withStyles(styles)(Post);
+export default withStyles(styles)(Message);

@@ -109,7 +109,7 @@ function UserDetails({ username, createdAt, bio }) {
       <div className="createdAt">
         <CalendarTodayIcon className={classes.icon} color="primary" />{" "}
         <span className={classes.createdAt}>
-          Joined {dayjs().fromNow(createdAt)}
+          Joined {dayjs(createdAt).format("DD/MM/YYYY")}
         </span>
       </div>
 

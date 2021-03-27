@@ -1,62 +1,56 @@
-import { useState } from "react";
-import makeStyles from "@material-ui/core/styles/makeStyles";
-import { colors } from "../constants/colors";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
+import * as React from "react";
+import PropTypes from "prop-types";
+import EmojiPicker from "emoji-picker-react";
+import Button from "@material-ui/core/Button";
+import { styles } from "./postForm.styles.module";
 import AttachFileIcon from "@material-ui/icons/AttachFile";
+import withStyles from "@material-ui/core/styles/withStyles";
+import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 
-const useStyles = makeStyles({
-  button: {
-    alignItems: "center",
-    display: "flex"
-  },
-  form: {
-    // marginTop: "3%",
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  textInput: {
-    padding: 10,
-    width: "73%",
-    display: "flex",
-    color: colors.lightgray,
-    borderRadius: 25,
-    margin: "1rem 0 0 .5rem",
-    // background: colors.secondary_color,
-    background: "#ebedef",
-    border: 0,
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0
-  }
-});
-
-function PostForm() {
-  const [msg, setMsg] = useState("");
-  const classes = useStyles();
+const PostForm = ({ classes, channelName, channelId }) => {
+  const [state, setState] = React.useState({
+    msg: "",
+    emojiPicker: null
+  });
 
   const handleInput = value => {
-    setMsg(value);
+    setState({ ...state, msg: value });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const postData = {
-      body: msg
+    const messageData = {
+      body: state.msg
     };
-    await axios.post("http://localhost:9090/posts", postData);
-    setMsg("");
+
+    await axios.post(
+      `http://localhost:9090/messages/${channelId}`,
+      messageData
+    );
+    setState({ ...state, msg: "" });
+  };
+
+  const handleOnOpenEmojiPicker = () => {
+    setState(prevState => ({
+      ...prevState,
+      emojiPicker: !prevState.emojiPicker
+    }));
   };
 
   return (
     <form className={classes.form} action="/post" method="POST">
+      <div className={classes.emoji_picker_container}>
+        {state.emojiPicker ? <EmojiPicker /> : ""}
+      </div>
+      <InsertEmoticonOutlinedIcon onClick={handleOnOpenEmojiPicker} />
       <input
         type="text"
         name="msg"
         className={classes.textInput}
-        placeholder="type something"
+        placeholder={`Message # ${channelName}`}
         autoFocus
+        value={state.msg}
         onChange={e => handleInput(e.target.value)}
       />
       <div>
@@ -71,6 +65,11 @@ function PostForm() {
       </div>
     </form>
   );
-}
+};
 
-export default PostForm;
+//prop Types validation
+PostForm.propTypes = {
+  classes: PropTypes.object
+};
+
+export default withStyles(styles)(PostForm);

@@ -10,10 +10,11 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import OutlinedInput from "@material-ui/core/OutlinedInput";
 import axios from "axios";
-import { styles } from "./registration.styles";
+import { styles } from "./registration.styles.module";
+import logo from "../auth/logo.svg";
 
 function Register({ classes, history }) {
-  const [values, setValues] = React.useState({
+  const [state, setState] = React.useState({
     username: "",
     email: "",
     password: "",
@@ -26,24 +27,24 @@ function Register({ classes, history }) {
   const [userNumbers, setUserNumbers] = React.useState(0);
 
   const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
+    setState({ ...state, [prop]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
+    setState({ ...state, showPassword: !state.showPassword });
   };
 
   const handleClickShowConfirmPassword = () => {
-    setValues({ ...values, showConfirmPassword: !values.showConfirmPassword });
+    setState({ ...state, showConfirmPassword: !state.showConfirmPassword });
   };
 
   const handleSubmit = async e => {
     e.preventDefault();
     const newUser = {
-      username: values.username,
-      email: values.email,
-      password: values.password,
-      confirmPassword: values.confirmPassword
+      username: state.username,
+      email: state.email,
+      password: state.password,
+      confirmPassword: state.confirmPassword
     };
 
     await axios.post("http://localhost:9090/signup", newUser);
@@ -64,9 +65,7 @@ function Register({ classes, history }) {
     <div className={classes.register}>
       <div className={classes.register__container}>
         <div className={classes.formHeader}>
-          <Typography className={classes.title} variant="body2">
-            Welcome
-          </Typography>
+          <img className={classes.logo} src={logo} alt="logo" />
           <Typography className={classes.subtitle} variant="caption">
             Join the Isbat Developers Community of over &nbsp;
             <Typography className={classes.usernumber} variant="caption">
@@ -87,7 +86,7 @@ function Register({ classes, history }) {
             <OutlinedInput
               className={classes.inputField}
               type="text"
-              value={values.username}
+              value={state.username}
               onChange={handleChange("username")}
             />
           </FormControl>
@@ -102,7 +101,7 @@ function Register({ classes, history }) {
             <OutlinedInput
               className={classes.inputField}
               type="email"
-              value={values.email}
+              value={state.email}
               onChange={handleChange("email")}
             />
           </FormControl>
@@ -121,8 +120,8 @@ function Register({ classes, history }) {
             <OutlinedInput
               className={classes.inputField}
               id="outlined-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              value={values.password}
+              type={state.showPassword ? "text" : "password"}
+              value={state.password}
               onChange={handleChange("password")}
               endAdornment={
                 <InputAdornment position="end">
@@ -131,7 +130,7 @@ function Register({ classes, history }) {
                     onClick={handleClickShowPassword}
                     edge="end"
                   >
-                    {values.showPassword && values.password ? (
+                    {state.showPassword && state.password ? (
                       <Visibility />
                     ) : (
                       <VisibilityOff />
@@ -154,8 +153,8 @@ function Register({ classes, history }) {
             <OutlinedInput
               className={classes.inputField}
               id="outlined-adornment-password"
-              type={values.showConfirmPassword ? "text" : "password"}
-              value={values.confirmPassword}
+              type={state.showConfirmPassword ? "text" : "password"}
+              value={state.confirmPassword}
               onChange={handleChange("confirmPassword")}
               endAdornment={
                 <InputAdornment position="end">
@@ -164,7 +163,7 @@ function Register({ classes, history }) {
                     onClick={handleClickShowConfirmPassword}
                     edge="end"
                   >
-                    {values.showConfirmPassword && values.confirmPassword ? (
+                    {state.showConfirmPassword && state.confirmPassword ? (
                       <Visibility />
                     ) : (
                       <VisibilityOff />

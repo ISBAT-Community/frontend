@@ -1,13 +1,12 @@
 import { colors, font } from "../constants/colors";
 
 export const styles = {
-  onlineUser: {
+  friends_container: {
     width: "100%",
-    padding: "1rem 1rem",
-    height: "90vh",
+    height: "85vh",
     overflowY: "scroll",
-    marginTop: "10%"
-    // background: colors.textColor
+    marginTop: 10,
+    backgroundColor: colors.whiteColor
   },
   link: {
     display: "flex",
@@ -17,12 +16,14 @@ export const styles = {
     textDecoration: "none"
   },
   user: {
+    width: "100%",
     padding: "0 1rem",
     display: "flex",
     alignItems: "center",
     margin: ".5rem 0"
   },
   name: {
+    width: "100%",
     fontSize: ".8rem",
     display: "flex",
     fontWeight: 600,
@@ -41,7 +42,7 @@ export const styles = {
     borderRadius: 25,
     cursor: "pointer",
     backgroundColor: colors.lightergreen,
-    position: "absolute",
+    // position: "absolute",
     margin: "1rem 0 0 -1.3rem",
     border: "2px solid #343434"
   },
@@ -50,7 +51,7 @@ export const styles = {
     height: 12,
     cursor: "pointer",
     borderRadius: 25,
-    position: "absolute",
+    // position: "absolute",
     margin: "1rem 0 0 -1.3rem",
     border: "2px solid #343434",
     backgroundColor: colors.red
