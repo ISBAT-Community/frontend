@@ -12,7 +12,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const Message = props => {
-  const { body, createdAt, user, classes } = props;
+  const { _id, body, createdAt, user, classes } = props;
 
   dayjs.extend(relativeTime);
 
@@ -59,7 +59,7 @@ const Message = props => {
             </div>
             <div className={classes.post_action}>
               {state.hover ? <PostAction /> : ""}
-              <Tooltip placement="top" title="More">
+              <Tooltip placement="top" title="More action">
                 <MoreVertIcon
                   onClick={handleClick}
                   className={classes.moreOptions}
@@ -69,6 +69,7 @@ const Message = props => {
                 anchorEl={state.anchorEl}
                 open={open}
                 id={id}
+                message_id={_id}
                 handleClose={handleClose}
               />
             </div>

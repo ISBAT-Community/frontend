@@ -1,21 +1,11 @@
 import { Link } from "react-router-dom";
-import MuiLink from "@material-ui/core/Link";
-// import Button from "@material-ui/core/Button";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import Typography from "@material-ui/core/Typography";
-
-//MUI Stuff
 import makeStyles from "@material-ui/core/styles/makeStyles";
-
-//Icons
 import SettingsIcon from "@material-ui/icons/Settings";
 import NotificationIcon from "@material-ui/icons/Notifications";
-
-//colors and fonts
 import { colors, font } from "../../components/constants/colors";
-
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 
@@ -66,29 +56,15 @@ const useStyles = makeStyles({
   }
 });
 
-function UserDetails({ username, createdAt, bio }) {
+function UserDetails() {
   dayjs.extend(relativeTime);
 
   const classes = useStyles();
   return (
     <div className="profile-details">
-      {/* <div className="button">
-        <Button variant="outlined" className={classes.button}>
-          Invite Friend
-        </Button>
-      </div> */}
-      <MuiLink
-        component={Link}
-        to="jaljdflkajkdsjf"
-        color="primary"
-        variant="h6"
-        className={classes.username}
-      >
-        {username ? username : "username"}
-      </MuiLink>
-      <div className={classes.createdAt}>
+      {/* <div className={classes.createdAt}>
         <Typography variant="caption">{bio ? "Bio:" + bio : null}</Typography>
-      </div>
+      </div> */}
       <div className="location">
         <LocationOnIcon className={classes.icon} color="primary" />
         <Typography className={classes.createdAt} variant="caption">
@@ -106,12 +82,12 @@ function UserDetails({ username, createdAt, bio }) {
           {"https://website"}
         </a>
       </div>
-      <div className="createdAt">
+      {/* <div className="createdAt">
         <CalendarTodayIcon className={classes.icon} color="primary" />{" "}
         <span className={classes.createdAt}>
           Joined {dayjs(createdAt).format("DD/MM/YYYY")}
         </span>
-      </div>
+      </div> */}
 
       <Link to="/projects" className={classes.settings}>
         <Typography variant="caption" className={classes.text}>

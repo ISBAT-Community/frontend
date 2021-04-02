@@ -4,7 +4,7 @@ export const styles = {
   channel: {
     display: "flex",
     alignItems: "center",
-    margin: "5px .7rem 0 0",
+    margin: "5px 1rem 0 10px",
     padding: 3,
     justifyContent: "space-between"
   },
@@ -22,7 +22,7 @@ export const styles = {
     borderRadius: 5,
     padding: 3,
     color: "#000",
-    margin: "5px .7rem 0 0",
+    margin: "5px 1rem 0 10px",
     background: colors.borderColor,
     justifyContent: "space-between"
   },

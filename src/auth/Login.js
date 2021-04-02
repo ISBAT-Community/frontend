@@ -26,6 +26,7 @@ function Login({ classes, history }) {
     onhoverPassword: null
   });
 
+  const [emailError, setEmailError] = React.useState("");
   // const [userNumbers, setUserNumbers] = useState(0);
   // const [passwordError, setPasswordError] = useState("");
 
@@ -57,11 +58,16 @@ function Login({ classes, history }) {
         history.push("/");
       }
     } catch (error) {
-      setState({ ...state, emailError: error.response.data.errors[0].email });
+      setEmailError(error.response.data.errors[0].email);
+      // setState({
+      //   ...state,
+      //   emailError: error.response.data.errors[0].
+      // });
       setState({
         ...state,
         passwordError: error.response.data.errors[0].password
       });
+      // console.log(error.response.data.errors[0].email);
     }
   };
 
@@ -98,10 +104,10 @@ function Login({ classes, history }) {
                 type="email"
                 value={state.email}
                 onChange={handleChange("email")}
-                error={state.emailError ? true : false}
+                error={emailError ? true : false}
               />
               <Typography className={classes.error} variant="caption">
-                {state.emailError && state.emailError}
+                {emailError ? emailError : null}
               </Typography>
             </FormControl>
 
@@ -148,7 +154,7 @@ function Login({ classes, history }) {
                 labelWidth={70}
               />
               <Typography className={classes.error} variant="caption">
-                {state.passwordError && state.passwordError}
+                {state.passwordError ? state.passwordError : null}
               </Typography>
             </FormControl>
 

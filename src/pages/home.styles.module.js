@@ -25,8 +25,8 @@ export const styles = {
     background: colors.background_color
   },
   container: {
-    width: "85%",
-    maxWidth: "1300px",
+    width: "100%",
+    maxWidth: "1700px",
     minWidth: 1070,
     height: "100vh",
     display: "flex",
@@ -51,11 +51,12 @@ export const styles = {
     width: "30%",
     maxWidth: 250,
     paddingTop: "2%",
+    position: "sticky",
     background: colors.background_color
   },
   main: {
-    width: "100%",
-    marginLeft: "16.5%",
+    width: "85%",
+    // marginLeft: "16.5%",
     backgroundColor: colors.background_color
   },
   main_content: {
@@ -80,6 +81,6 @@ export const styles = {
     scrollBehavior: "smooth"
   },
   rightSidebar: {
-    width: "25%"
+    width: "35%"
   }
 };

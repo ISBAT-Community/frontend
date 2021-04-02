@@ -17,6 +17,7 @@ export const styles = {
   channel_title: {
     fontSize: "1rem",
     fontWeight: "bolder",
+    color: colors.black,
     fontFamily: font.fontFamily
   },
   user_channel: {

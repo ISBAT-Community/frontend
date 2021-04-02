@@ -23,7 +23,8 @@ function Friends({ classes, fetchFriends, friendList, loading }) {
   return (
     <div className="actions column">
       <div className={classes.members_status}>
-        <Typography>Members status __</Typography>
+        <Typography>People</Typography>
+        <Typography variant="caption">Online__</Typography>
       </div>
       <div className={classes.friends_container}>
         {!loading ? (
@@ -51,7 +52,10 @@ function Friends({ classes, fetchFriends, friendList, loading }) {
                     }
                   ></div>
                 </Tooltip>
-                {friend.username}
+                <div>
+                  {friend.username}
+                  <p className={classes.bio}>{friend.bio && friend.bio}</p>
+                </div>
               </Typography>
             </div>
           ))

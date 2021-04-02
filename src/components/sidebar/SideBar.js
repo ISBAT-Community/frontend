@@ -1,63 +1,52 @@
-import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
 import UserDetails from "./UserDetails";
-import Tooltip from "@material-ui/core/Tooltip";
-import makeStyles from "@material-ui/core/styles/makeStyles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Channels from "./Channels";
+import { styles } from "./sideBar.styles.module";
+import { Typography } from "@material-ui/core";
 
-import { colors } from "../constants/colors";
-
-const useStyles = makeStyles({
-  SideBar: {
-    width: "13.8%",
-    height: "100%",
-    position: "fixed",
-    marginRight: ".1rem",
-    marginLeft: "13.8%",
-    background: "#fff",
-    padding: "0 0 0 1rem"
-  },
-  SideBar_profilePic: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  SideBar_profilePic_img: {
-    width: "80px",
-    height: "80px",
-    marginTop: "15%",
-    objectFit: "cover",
-    borderRadius: "50%"
-  },
-  editIcon: {
-    margin: "-2rem 0 0 6rem",
-    color: colors.lightYellowGreen
-  }
-});
-
-function SideBar({ username, createdAt, bio, profilePic }) {
-  const classes = useStyles();
-
+function SideBar({ username, createdAt, profilePic, classes }) {
   return (
     <div className={classes.SideBar}>
       <div className={classes.SideBar_profilePic}>
-        <img
-          className={classes.SideBar_profilePic_img}
-          src={profilePic}
-          alt="profile"
-        />
+        <div className={classes.SideBar_userInfo}>
+          <img
+            className={classes.SideBar_profilePic_img}
+            src={profilePic}
+            alt="profile"
+          />
+          <p className={classes.status}></p>
+        </div>
+        <div>
+          <Typography className={classes.SideBar_fullname}>
+            {username}
+          </Typography>
+          <Typography className={classes.SideBar_username}>
+            @_{username ? username.split(" ").join("_") : "loading..."}
+          </Typography>
+        </div>
       </div>
-      <Tooltip title="Edit Profile Pic" placement="right-end">
-        <IconButton className={classes.editIcon}>
-          <EditIcon />
-        </IconButton>
-      </Tooltip>
-      <UserDetails username={username} createdAt={createdAt} bio={bio} />
+      <div className={classes.followers__following}>
+        <Typography className={classes.followers}>
+          <span className={classes.followers__count}>{1.7}K</span> followers
+        </Typography>
+        <Typography className={classes.following}>
+          <Typography className={classes.followers}>
+            <span className={classes.following__count}>{9}</span> following
+          </Typography>
+        </Typography>
+      </div>
+
+      <div className={classes.user_bio}>
+        <Typography variant="caption">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto
+          quam repellendus modi, pariatur
+        </Typography>
+      </div>
+      <UserDetails username={username} createdAt={createdAt} />
       <hr />
       <Channels />
     </div>
   );
 }
 
-export default SideBar;
+export default withStyles(styles)(SideBar);

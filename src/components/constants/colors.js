@@ -10,6 +10,7 @@ export const colors = {
   lightPurple: "#be76d3",
   skyBlue: "#18ffff",
   red: "red",
+  redColor: "#f74243",
   yellow: "yellow",
   // background_color: "#36393f",
   // secondary_background_color: "#202225",
@@ -24,6 +25,7 @@ export const colors = {
   yelllowOrangeColor: "#f9ca0c",
 
   /* light theme */
+  black: "#000",
   whiteColor: "#fff",
   lightBlueGray: "#ebedef",
   white: "#757070",

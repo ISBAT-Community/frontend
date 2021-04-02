@@ -7,6 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import EditIcon from "@material-ui/icons/Edit";
 import ReplyIcon from "@material-ui/icons/Reply";
 import DeleteIcon from "@material-ui/icons/Delete";
+import AlertModal from "../modal/AlertModal";
 
 const useStyles = makeStyles({
   content: {
@@ -62,13 +63,24 @@ const useStyles = makeStyles({
   }
 });
 
-function More({ id, open, anchorEl, handleClose }) {
+function More({ id, message_id, open, anchorEl, handleClose }) {
   const classes = useStyles();
   const [onHover, setOnHover] = React.useState({
     edit_message: null,
     reply_message: null,
     delete_message: null
   });
+
+  const [openAlert, setOpenAlert] = React.useState(false);
+
+  const handleAlertOnClickOpen = e => {
+    e.preventDefault();
+    setOpenAlert(true);
+  };
+
+  const handleAlertClose = () => {
+    setOpenAlert(false);
+  };
 
   const handleOnMouseEnter = () => {
     setOnHover({ ...onHover, edit_message: true });
@@ -125,8 +137,17 @@ function More({ id, open, anchorEl, handleClose }) {
               <ReplyIcon className={classes.icon} />
             </div>
             <div className={classes.link_container}>
-              <Link to="#" className={classes.delete_message}>
+              <Link
+                onClick={e => handleAlertOnClickOpen(e)}
+                to="#"
+                className={classes.delete_message}
+              >
                 Delete Message
+                <AlertModal
+                  message_id={message_id}
+                  open={openAlert}
+                  onClose={handleAlertClose}
+                />
               </Link>
               <DeleteIcon className={classes.icon} />
             </div>

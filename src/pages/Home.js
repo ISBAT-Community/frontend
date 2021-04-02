@@ -91,8 +91,6 @@ const Home = ({
     }
   };
 
-  console.log(channelMessages);
-
   return (
     <React.Fragment>
       <Header />
@@ -119,17 +117,22 @@ const Home = ({
               </div>
               <div className={classes.main_column}>
                 <div className={classes.message}>
-                  {channelMessages ? (
-                    channelMessages.map(message => (
-                      <React.Fragment>
-                        <Message
-                          user={message.user}
-                          body={message.body}
-                          createdAt={message.createdAt}
-                        />
-                        <Divider className={classes.divider} />
-                      </React.Fragment>
-                    ))
+                  {channelMessages.length > 0 ? (
+                    channelMessages ? (
+                      channelMessages.map(message => (
+                        <React.Fragment key={message._id}>
+                          <Message
+                            user={message.user}
+                            body={message.body}
+                            _id={message._id}
+                            createdAt={message.createdAt}
+                          />
+                          <Divider className={classes.divider} />
+                        </React.Fragment>
+                      ))
+                    ) : (
+                      <p>Hi there</p>
+                    )
                   ) : (
                     <NoMessages name={channelName} />
                   )}
