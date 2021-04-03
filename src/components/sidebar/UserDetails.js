@@ -56,7 +56,7 @@ const useStyles = makeStyles({
   }
 });
 
-function UserDetails() {
+const UserDetails = () => {
   dayjs.extend(relativeTime);
 
   const classes = useStyles();
@@ -103,7 +103,7 @@ function UserDetails() {
         </Typography>
       </Link>
 
-      <Link to="/settings" className={classes.settings}>
+      <Link to={`/profile/settings`} className={classes.settings}>
         <Typography className={classes.text} variant="caption">
           <SettingsIcon className={classes.icon} />
           Settings
@@ -111,6 +111,6 @@ function UserDetails() {
       </Link>
     </div>
   );
-}
+};
 
 export default UserDetails;

@@ -27,7 +27,7 @@ function Friends({ classes, fetchFriends, friendList, loading }) {
         <Typography variant="caption">Online__</Typography>
       </div>
       <div className={classes.friends_container}>
-        {!loading ? (
+        {friendList && !loading ? (
           friendList.map(friend => (
             <div key={friend._id} className={classes.user}>
               <div className={classes.profilePic}>

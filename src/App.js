@@ -1,11 +1,11 @@
 import "./App.css";
-// import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { MuiThemeProvider } from "@material-ui/core/styles/";
 import jwtDecode from "jwt-decode";
 import SinglePost from "./pages/SinglePost";
 import Home from "./pages/Home.js";
-import Settings from "./pages/Settings.js";
+// import Settings from "./pages/Settings.js";
+import GeneralSettings from "./components/settings/GeneralSettings";
 import { ProtectedRoute } from "./utils/protect.route";
 import { theme } from "./components/constants/styles.js";
 import axios from "axios";
@@ -32,7 +32,7 @@ function App() {
         <Switch>
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Register} />
-          <Route path="/settings" exact component={Settings} />
+          <Route path="/profile/settings" exact component={GeneralSettings} />
           <Route path="/post/:id" exact component={SinglePost} />
           <ProtectedRoute authenticated={authenticated} component={Home} />
         </Switch>
