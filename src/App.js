@@ -11,8 +11,20 @@ import { theme } from "./components/constants/styles.js";
 import axios from "axios";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
+import io from 'socket.io-client';
 
 const token = localStorage.getItem("AuthToken");
+
+const EndPoint = "http://localhost:9090"
+
+const socket = io.connect(EndPoint, {
+  query: { token }
+});
+
+socket.on("chat-message", data => {
+  console.log(data)
+})
+
 let authenticated;
 
 if (token) {

@@ -3,16 +3,16 @@ import { colors } from "../components/constants/colors";
 export const styles = {
   "@global": {
     "*::-webkit-scrollbar": {
-      width: "0.4em"
+      width: "0.4rem"
     },
     "*::-webkit-scrollbar-track": {
       borderRadius: 25,
-      background: colors.secondary_color,
-      "-webkit-box-shadow": "inset 0 0 6px rgba(0,0,0,0.00)"
+      background: "#eeeeee",
+      "-webkit-box-shadow": "inset 0 0 7px rgba(0,0,0,0.00)"
     },
     "*::-webkit-scrollbar-thumb": {
       borderRadius: 25,
-      background: colors.dark_background_color
+      background: "#e0e0e0"
     }
   },
 

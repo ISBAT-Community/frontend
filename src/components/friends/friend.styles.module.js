@@ -11,7 +11,7 @@ export const styles = {
     height: "85vh",
     overflowY: "scroll",
     marginTop: 10,
-    marginLeft: 10,
+    // marginLeft: 10,
     backgroundColor: colors.whiteColor
   },
   link: {

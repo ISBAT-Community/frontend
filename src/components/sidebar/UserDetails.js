@@ -62,9 +62,6 @@ const UserDetails = () => {
   const classes = useStyles();
   return (
     <div className="profile-details">
-      {/* <div className={classes.createdAt}>
-        <Typography variant="caption">{bio ? "Bio:" + bio : null}</Typography>
-      </div> */}
       <div className="location">
         <LocationOnIcon className={classes.icon} color="primary" />
         <Typography className={classes.createdAt} variant="caption">
@@ -82,12 +79,6 @@ const UserDetails = () => {
           {"https://website"}
         </a>
       </div>
-      {/* <div className="createdAt">
-        <CalendarTodayIcon className={classes.icon} color="primary" />{" "}
-        <span className={classes.createdAt}>
-          Joined {dayjs(createdAt).format("DD/MM/YYYY")}
-        </span>
-      </div> */}
 
       <Link to="/projects" className={classes.settings}>
         <Typography variant="caption" className={classes.text}>

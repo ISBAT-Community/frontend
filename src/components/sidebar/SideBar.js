@@ -4,6 +4,7 @@ import Channels from "./Channels";
 import { styles } from "./sideBar.styles.module";
 import { Typography } from "@material-ui/core";
 
+
 function SideBar({ username, createdAt, profilePic, classes }) {
   return (
     <div className={classes.SideBar}>
